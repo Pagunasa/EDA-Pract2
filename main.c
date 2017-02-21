@@ -15,7 +15,7 @@
  * Modified: February 2017
  */
 
-#if 1 // exemple torres de hanoi: basic
+#if 1  // exemple torres de hanoi: basic
 
 #include <stdio.h>
 #include <string.h>
