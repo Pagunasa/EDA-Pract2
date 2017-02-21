@@ -19,41 +19,46 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "structs.h"
 
 #define NDISCS    5 // Number of discs to consider
 #define NTOWERS   3 // Number of towers to consider: it cannot be changed in this version
 
 // This function indicates a move of one disk
-void move(int towerorg, int towerdest){
-    
-    printf("Move one disc from %d to %d\n", 
-            towerorg, towerdest);
-    
-}// move
+
+//void move(int towerorg, int towerdest){
+//    
+//    printf("Move one disc from %d to %d\n", 
+//            towerorg, towerdest);
+//    
+//}// move
 
 // Recursive function to move nd disks from the origin tower towerorg, to 
 // destination tower towerdest, using toweraux as auxiliary tower.
 // it doesn't return anything and instead it prints information of the move of 
 // the disks to display
-void hanoi(int nd, int towerorg, int towerdest, int toweraux){
-    
-    if (nd == 1){
-        move(towerorg, towerdest);
-    }
-    else{
-        hanoi(nd - 1, towerorg, toweraux, towerdest);
-        move(towerorg, towerdest);
-        hanoi(nd - 1, toweraux, towerdest, towerorg);
-    }                                                     
-}// hanoi
 
-int main(){    
-    
+//void hanoi(int nd, int towerorg, int towerdest, int toweraux){
+//    
+//    if (nd == 1){
+//        move(towerorg, towerdest);
+//    }
+//    else{
+//        hanoi(nd - 1, towerorg, toweraux, towerdest);
+//        move(towerorg, towerdest);
+//        hanoi(nd - 1, toweraux, towerdest, towerorg);
+//    }                                                     
+//}// hanoi
+
+int main() {
+
     int nd = NDISCS;
-    
-    hanoi(nd, 0, 1, 2);
-    
-    return(0);
+    sMovesState stateList;
+    sTowersState tower;
+
+    hanoi(nd, 0, 1, 2, 0, 0, &stateList, &tower);
+
+    return (0);
 } // main
 
 #endif // exemple torres de hanoi : basic

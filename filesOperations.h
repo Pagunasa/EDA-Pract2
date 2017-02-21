@@ -8,16 +8,9 @@
 #ifndef FILESOPERATIONS_H
 #define	FILESOPERATIONS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
-
-
-#ifdef	__cplusplus
-}
-#endif
+void paintMoves(sMovesState stateList, int move);
+void showComands();
+void makeTxt(sMovesState stateList, sTowersState towers, sHeader header, char fileName);
 
 #endif	/* FILESOPERATIONS_H */
 
