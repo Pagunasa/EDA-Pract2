@@ -20,9 +20,11 @@
 #include <stdio.h>
 #include <string.h>
 #include "structs.h"
+#include "listOperations.h"
+#include "filesOperations.h"
 
-#define NDISCS    5 // Number of discs to consider
-#define NTOWERS   3 // Number of towers to consider: it cannot be changed in this version
+//#define NDISCS    5 // Number of discs to consider
+//#define NTOWERS   3 // Number of towers to consider: it cannot be changed in this version
 
 // This function indicates a move of one disk
 
@@ -52,11 +54,16 @@
 
 int main() {
 
-    int nd = NDISCS;
-    sMovesState stateList;
+    int nd = MAXOFDISK;
+    sHeader stateList;
     sTowersState tower;
-
-    hanoi(nd, 0, 1, 2, 0, 0, &stateList, &tower);
+    int movemnt= 0;
+    int depth = 0;
+    
+    showCommands();
+    
+    initTowers(&tower);
+    hanoi(nd, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
 
     return (0);
 } // main
