@@ -11,6 +11,13 @@ void showCommands() {
     printf(COLOR_GREEN " -o <codigo de operación> \n\n" COLOR_RESET);
 
     printf("Los codigos de operacion son: \n");
-    printf(COLOR_GREEN "ap -> Guardar la informacion en un fichero existente\n"COLOR_RESET);
-    printf(COLOR_GREEN "w -> Crear un nuevo fichero o aplastar uno existente\n\n"COLOR_RESET);
+    printf(COLOR_GREEN "ap -> Guardar la informacion en un fichero existente\n");
+    printf( "w -> Crear un nuevo fichero o aplastar uno existente\n\n"COLOR_RESET);
+}
+
+void inputComands(){
+    char cmd[MAXLENGTH500];
+    
+    printf( "Introduce el comando: \n" );
+    scanf("%s", cmd);
 }

@@ -10,6 +10,7 @@
 
 void paintMoves(sMovesState stateList, int move);
 void showComands();
+void inputComands();
 void makeTxt(sMovesState stateList, sTowersState towers, sHeader header, char fileName);
 
 #endif	/* FILESOPERATIONS_H */

@@ -12,7 +12,7 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     
     if (towers->TowerInfo[org][i] == 0) {
         do {
-             i++;
+            i++;
             auxDisk = towers->TowerInfo[org][i];
         } while (towers->TowerInfo[org][i] == 0);
             towers->TowerInfo[org][i] = 0;
@@ -66,7 +66,7 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     stateList->moveState[mvmNumb].diskMoved = auxDisk;
     stateList->moveState[mvmNumb].towerDest = dest;
     stateList->moveState[mvmNumb].towerOrg = org;
-    
+    towers->moves = (*movemt);
     printf("Move one disc from %d to %d\n", org, dest);
     return 1;
 }
@@ -97,4 +97,9 @@ void initTowers(sTowersState *towers) {
             }
         }
     }
+}
+
+void initHeaderInfo(sHeader *stateList, int nd, int nt){
+    stateList->diskNum = nd;
+    stateList->towerNum = nt;
 }

@@ -54,7 +54,7 @@
 
 int main() {
 
-    int nd = MAXOFDISK;
+    int nd = MAXOFDISK, nt = MAXOFTOWERS;
     sHeader stateList;
     sTowersState tower;
     int movemnt= 0;
@@ -62,9 +62,11 @@ int main() {
     
     showCommands();
     
+    initHeaderInfo(&stateList, nd, nt);
     initTowers(&tower);
     hanoi(nd, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
-
+    
+    
     return (0);
 } // main
 
