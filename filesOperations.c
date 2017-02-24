@@ -4,7 +4,7 @@
 #include "filesOperations.h"
 
 void showCommands() {
-    printf( "Los commandos para operar son: \n" );
+    printf("Los commandos para operar son: \n");
     printf(COLOR_MAGENTA "hanoiplus" COLOR_RESET);
     printf(COLOR_CYAN " -d <numero de discos>" COLOR_RESET);
     printf(COLOR_YELLOW " -f <nombre del fichero>" COLOR_RESET);
@@ -12,12 +12,29 @@ void showCommands() {
 
     printf("Los codigos de operacion son: \n");
     printf(COLOR_GREEN "ap -> Guardar la informacion en un fichero existente\n");
-    printf( "w -> Crear un nuevo fichero o aplastar uno existente\n\n"COLOR_RESET);
+    printf("w -> Crear un nuevo fichero o aplastar uno existente\n\n"COLOR_RESET);
 }
 
-void inputComands(){
-    char cmd[MAXLENGTH500];
+void inputComands(sHeader *stateList) {
+    char cmd[MAXLENGTH100];
+    char cmdAux[MAXLENGTH100];
     
-    printf( "Introduce el comando: \n" );
-    scanf("%s", cmd);
+    printf("Introduce el comando: \n");
+    scanf("%[^\n]", cmd);
+    
+    int i = 0;
+    
+    while(i < strlen(cmd)){
+        if (cmd[i] != ' '){
+            cmdAux[i] = cmd[i];
+            //strcpy(cmdAux, cmd[i]);
+        }else{
+            
+        }
+        i++;
+    }
+
+    strcpy(stateList->cmdLine, cmd);
+
+
 }

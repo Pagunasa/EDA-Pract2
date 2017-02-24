@@ -48,8 +48,8 @@ typedef struct{
 
 typedef struct{
     char cmdLine[MAXLENGTH500];
-    char towerNum[MAXLENGTH10];
-    char diskNum[MAXLENGTH10];
+    int towerNum;
+    int diskNum;
     char ouputFilename[MAXLENGTH100];
     char fileOperations[MAXLENGTH20];
     sDateTime date; 

@@ -60,8 +60,8 @@ int main() {
     int movemnt= 0;
     int depth = 0;
     
-    showCommands();
-    
+    showCommands(); 
+    inputComands(&stateList);
     initHeaderInfo(&stateList, nd, nt);
     initTowers(&tower);
     hanoi(nd, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
