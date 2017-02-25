@@ -16,18 +16,19 @@ void showCommands() {
     printf("w -> Crear un nuevo fichero o aplastar uno existente\n\n"COLOR_RESET);
 }
 
-void inputComands(sHeader *stateList) {
+int inputComands(sHeader *stateList) {
     char cmd[MAXLENGTH100];
     char cmdAux[MAXLENGTH100];
 
     printf("Introduce el comando: \n");
     scanf("%[^\n]", cmd);
+    fflush(stdin);
 
-    int i = 0, j = 0, intAux;
+    int i = 0, j = 0, e = 0, a = 0, intAux, fail = 0;
     int moreCmds = 0;
 
     while (i < strlen(cmd)) {
-        if (cmd[i] != ' ') {
+        if (cmd[i] != ' ' && cmd[i] != '\0') {
             cmdAux[i] = cmd[i];
         } else {
             cmdAux[i] = '\0';
@@ -42,35 +43,81 @@ void inputComands(sHeader *stateList) {
                         cmdAux[j] = cmd[i];
                     } else {
                         i++;
-                        int e = 0;
+                        a = i;
+                        e = 0;
                         if (strcmp(cmdAux, "-d") == 0) {
                             memset(cmdAux, '\0', strlen(cmdAux));
                             while (e < strlen(cmd)) {
-                                if (cmd[i] != '\0' || cmd[i] != ' ') {
-                                    cmdAux[e] = cmd[i];
+                                if (cmd[a] != '\0' && cmd[a] != 32) {
+                                    cmdAux[e] = cmd[a];
                                     e++;
                                 } else {
                                     e = strlen(cmd);
                                 }
-                                i++;
+                                a++;
                             }
                             intAux = atoi(cmdAux);
+
                             if (intAux != 0) {
                                 stateList->diskNum = intAux;
+                            } else {
+                                printf(COLOR_RED "Comando no valido, el numero de discos no se puede ser -d %s \n" COLOR_RESET, cmdAux);
+                                fail = 1;
                             }
-                            printf(COLOR_RED "Comando no valido, no se puede introducir -d %s \n" COLOR_RESET, cmdAux);
-
+                            i = a - 1;
+                            memset(cmdAux, '\0', strlen(cmdAux));
+                            j = -1;
                         } else if (strcmp(cmdAux, "-f") == 0) {
                             memset(cmdAux, '\0', strlen(cmdAux));
                             while (e < strlen(cmd)) {
-                                
+                                if (cmd[a] != '\0' && cmd[a] != ' ') {
+                                    cmdAux[e] = cmd[a];
+                                    e++;
+                                } else {
+                                    e = strlen(cmd);
+                                }
+                                a++;
                             }
-                        } else if (strcmp(cmdAux, "-o") == 0) {
-                            while (cmd[i] != ' ') {
 
+                            if (strcmp(cmdAux, "-d") == 0 || strcmp(cmdAux, "-o") == 0 || strcmp(cmdAux, "-f") == 0) {
+                                printf(COLOR_RED "Comando no valido, no se puede llamar al fichero %s \n" COLOR_RESET, cmdAux);
+                                fail = 1;
+                            } else {
+                                strcpy(stateList->ouputFilename, cmdAux);
                             }
+                            i = a - 1;
+                            memset(cmdAux, '\0', strlen(cmdAux));
+                            j = -1;
+                        } else if (strcmp(cmdAux, "-o") == 0) {
+                            memset(cmdAux, '\0', strlen(cmdAux));
+                            while (e < strlen(cmd)) {
+                                if (cmd[a] != '\0' && cmd[a] != ' ') {
+                                    cmdAux[e] = cmd[a];
+                                    e++;
+                                } else {
+                                    e = strlen(cmd);
+                                }
+                                a++;
+                            }
+
+                            intAux = 0;
+                            if (strcmp(cmdAux, "ap") != 0) {
+                                intAux++;
+                            }
+                            if (strcmp(cmdAux, "w") != 0){
+                                intAux++;
+                            }
+                            if(intAux == 2){
+                                printf(COLOR_RED "Comando no valido, no se puede introducir -o %s \n" COLOR_RESET, cmdAux);
+                                fail = 1;
+                            }
+
+                            i = a - 1;
+                            memset(cmdAux, '\0', strlen(cmdAux));
+                            j = -1;
                         } else {
                             printf(COLOR_RED "Comando no valido, no se puede introducir %s \n" COLOR_RESET, cmdAux);
+                            fail = 1;
                             i = strlen(cmd);
                         }
                     }
@@ -80,6 +127,7 @@ void inputComands(sHeader *stateList) {
 
             } else {
                 printf(COLOR_RED "Comando no valido, no se puede introducir %s \n" COLOR_RESET, cmdAux);
+                fail = 1;
                 i = strlen(cmd);
             }
 
@@ -89,7 +137,13 @@ void inputComands(sHeader *stateList) {
 
     if (moreCmds == 0) {
         if (strcmp(cmd, "hanoiplus") == 0) {
+            printf(COLOR_GREEN "Comando valido, introducion correcta! \n" COLOR_RESET);
             strcpy(stateList->cmdLine, cmd);
+        } else {
+            printf(COLOR_RED "Comando no valido, no se puede introducir %s \n" COLOR_RESET, cmd);
+            fail = 1;
         }
     }
+
+    return fail;
 }

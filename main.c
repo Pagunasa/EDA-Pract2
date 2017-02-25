@@ -57,9 +57,13 @@ int main() {
     sTowersState tower;
     int movemnt= 0;
     int depth = 0;
+    int pass;
     
-    showCommands(); 
-    inputComands(&stateList);
+    showCommands();
+    do{
+        pass = inputComands(&stateList);
+    }while(pass != 0);
+    
     initHeaderInfo(&stateList, nd, nt);
     initTowers(&tower);
     hanoi(nd, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);

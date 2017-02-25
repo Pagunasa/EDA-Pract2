@@ -20,6 +20,7 @@
 #define TOWERAUXILIAR 1
 #define TOWERDESTINY 2
 
+
 //Colors
 #define COLOR_RED   "\x1b[31m"
 #define COLOR_GREEN "\x1b[32m"
