@@ -1,9 +1,15 @@
-/* 
- * File:   structs.h
- * Author: u140172
- *
- * Created on February 21, 2017, 12:28 PM
+/* 2016-17 Estructures de Dades i Algorismes I
+ * 
+ * Practice assignment 2: Hanoi Towers Game 
+ * File: structs.h
+ * 
+ * This file contains the definitions of all constants and the typedef of 
+ * all the structs who is needed for working the program.
+ * 
+ * Prepared by: 
+ * Modified: February 2017
  */
+
 
 #ifndef STRUCTS_H
 #define	STRUCTS_H

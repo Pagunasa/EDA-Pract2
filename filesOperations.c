@@ -1,3 +1,19 @@
+/* 2016-17 Estructures de Dades i Algorismes I
+ * 
+ * Practice assignment 2: Hanoi Towers Game 
+ * File: listOperations.c
+ * 
+ * This file contains the operations who is refereds whit the work with the 
+ * files, inputs, ouputs and the function who cleans the stdin. 
+ * It only have three functions for showing who you have tho write the command , 
+ * the inputComands who is needed for segure that the input was correct and the 
+ * dump_line function who we use for cleaning the stdin.
+ * 
+ * Prepared by: 
+ * Modified: February 2017
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

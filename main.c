@@ -1,17 +1,15 @@
 /* 2016-17 Estructures de Dades i Algorismes I
  * 
  * Practice assignment 2: Hanoi Towers Game 
- * File: hanoi-basic.c
+ * File: main.c
  * 
- * This file contains the full program of basic hanoi game. It only prints the
- * tetx for each move indicating that a disk moves from one orig tower to a 
- * dest tower. It is the starting point with the recursive tool, but it is 
- * capable to show the state of the towers and disks after each move.
+ * This file contains the hearth of hanoi game. It only calls another 
+ * functions for doing the caracteristics that the game need for working
  * 
  * It can only operate with 3 towers and the number of disk can be changed 
- * manually changing the value of the define NDISCS.
+ * manually putting it in the inputComands function.
  * 
- * Prepared by: Dolors Sala
+ * Prepared by: 
  * Modified: February 2017
  */
 

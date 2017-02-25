@@ -1,8 +1,13 @@
-/* 
- * File:   mainOperations.h
- * Author: u140172
- *
- * Created on February 21, 2017, 12:28 PM
+/* 2016-17 Estructures de Dades i Algorismes I
+ * 
+ * Practice assignment 2: Hanoi Towers Game 
+ * File: mainOperations.h
+ * 
+ * This file contains the prototipe of all functions who pertains to
+ * the file named main.c
+ * 
+ * Prepared by: 
+ * Modified: February 2017
  */
 
 #ifndef MAINOPERATIONS_H

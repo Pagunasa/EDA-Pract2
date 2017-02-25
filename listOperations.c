@@ -1,3 +1,17 @@
+/* 2016-17 Estructures de Dades i Algorismes I
+ * 
+ * Practice assignment 2: Hanoi Towers Game 
+ * File: listOperations.c
+ * 
+ * This file contains the initalation and the logic of hanoi game. 
+ * It only have four functions for moving the disks and the hanoi function
+ * who works recursively and calls move for resolve the game, and we have 
+ * initTowers and initHeaderInfo who set a default values for the structs
+ * 
+ * Prepared by: 
+ * Modified: February 2017
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include "structs.h"
