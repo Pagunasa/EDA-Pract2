@@ -10,7 +10,7 @@
 
 int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers);
 int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers);
-void initTowers(sTowersState *towers);
+void initTowers(sTowersState *towers, sHeader *stateList);
 void initHeaderInfo(sHeader *stateList, int nd, int nt);
 
 #endif	/* LISTOPERATIONS_H */

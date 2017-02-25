@@ -48,7 +48,7 @@ int inputComands(sHeader *stateList) {
                         if (strcmp(cmdAux, "-d") == 0) {
                             memset(cmdAux, '\0', strlen(cmdAux));
                             while (e < strlen(cmd)) {
-                                if (cmd[a] != '\0' && cmd[a] != 32) {
+                                if (cmd[a] != '\0' && cmd[a] != ' ') {
                                     cmdAux[e] = cmd[a];
                                     e++;
                                 } else {
@@ -110,6 +110,8 @@ int inputComands(sHeader *stateList) {
                             if(intAux == 2){
                                 printf(COLOR_RED "Comando no valido, no se puede introducir -o %s \n" COLOR_RESET, cmdAux);
                                 fail = 1;
+                            }else{
+                                strcpy(stateList->fileOperations, cmdAux);
                             }
 
                             i = a - 1;
@@ -137,12 +139,15 @@ int inputComands(sHeader *stateList) {
 
     if (moreCmds == 0) {
         if (strcmp(cmd, "hanoiplus") == 0) {
-            printf(COLOR_GREEN "Comando valido, introducion correcta! \n" COLOR_RESET);
-            strcpy(stateList->cmdLine, cmd);
+            printf(COLOR_GREEN "Comando valido, introducion correcta! \n" COLOR_RESET);      
         } else {
             printf(COLOR_RED "Comando no valido, no se puede introducir %s \n" COLOR_RESET, cmd);
             fail = 1;
         }
+    }
+    
+    if(fail == 0){
+         strcpy(stateList->cmdLine, cmd);
     }
 
     return fail;

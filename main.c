@@ -60,13 +60,14 @@ int main() {
     int pass;
     
     showCommands();
+    initHeaderInfo(&stateList, nd, nt);
+        
     do{
         pass = inputComands(&stateList);
     }while(pass != 0);
     
-    initHeaderInfo(&stateList, nd, nt);
-    initTowers(&tower);
-    hanoi(nd, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
+    initTowers(&tower, &stateList);
+    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
     
     
     return (0);

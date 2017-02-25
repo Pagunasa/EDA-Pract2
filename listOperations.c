@@ -84,11 +84,11 @@ int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *s
     return 1;
 }// hanoi
 
-void initTowers(sTowersState *towers) {
+void initTowers(sTowersState *towers, sHeader *stateList) {
     towers->moves = 0;
     int diskValue = 0;
-    for (int k = 0; k < MAXOFTOWERS; k++) {
-        for (int i = 0; i < MAXOFDISK; i++) {
+    for (int k = 0; k < stateList->towerNum; k++) {
+        for (int i = 0; i < stateList->diskNum; i++) {
             if (k == 0) {
                 diskValue++;
                 towers->TowerInfo[k][i] = diskValue;
@@ -101,6 +101,7 @@ void initTowers(sTowersState *towers) {
 
 void initHeaderInfo(sHeader *stateList, int nd, int nt){
     stateList->diskNum = nd;
-    stateList->ouputFilename = "NULL"
+    strcpy(stateList->fileOperations, "ap");
+    strcpy(stateList->ouputFilename, "NULL");
     stateList->towerNum = nt;
 }
