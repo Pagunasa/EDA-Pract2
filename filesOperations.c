@@ -4,6 +4,7 @@
 #include "structs.h"
 #include "filesOperations.h"
 
+
 void showCommands() {
     printf("Los commandos para operar son: \n");
     printf(COLOR_MAGENTA "hanoiplus" COLOR_RESET);
