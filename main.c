@@ -44,9 +44,7 @@
 //    
 //    if (nd == 1){
 //        move(towerorg, towerdest);
-//    }
-//    else{
-//        hanoi(nd - 1, towerorg, toweraux, towerdest);
+//    
 //        move(towerorg, towerdest);
 //        hanoi(nd - 1, toweraux, towerdest, towerorg);
 //    }                                                     
