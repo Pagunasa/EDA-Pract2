@@ -22,7 +22,7 @@ int inputComands(sHeader *stateList) {
 
     printf("Introduce el comando: \n");
     scanf("%[^\n]", cmd);
-    fflush(stdin);
+    dump_line(stdin);
 
     int i = 0, j = 0, e = 0, a = 0, intAux, fail = 0;
     int moreCmds = 0;
@@ -146,4 +146,11 @@ int inputComands(sHeader *stateList) {
     }
 
     return fail;
+}
+
+void dump_line(FILE * fp){
+  int ch;
+
+  while( (ch = fgetc(fp)) != EOF && ch != '\n' )
+    /* null body */;
 }

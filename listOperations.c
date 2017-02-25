@@ -101,5 +101,6 @@ void initTowers(sTowersState *towers) {
 
 void initHeaderInfo(sHeader *stateList, int nd, int nt){
     stateList->diskNum = nd;
+    stateList->ouputFilename = "NULL"
     stateList->towerNum = nt;
 }
