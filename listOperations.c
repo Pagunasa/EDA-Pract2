@@ -119,3 +119,8 @@ void initHeaderInfo(sHeader *stateList, int nd, int nt){
     strcpy(stateList->ouputFilename, "NULL");
     stateList->towerNum = nt;
 }
+void showMovement(sHeader stateList,int mvmNumber){
+    int movement= mvmNumber-1;
+    printf("Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i ",mvmNumber, stateList.moveState[movement].depth,stateList.moveState[movement].diskMoved,stateList.moveState[movement].towerOrg,stateList.moveState[movement].towerDest);
+    
+                                                   }

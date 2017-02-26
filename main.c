@@ -43,6 +43,7 @@
 //void hanoi(int nd, int towerorg, int towerdest, int toweraux){
 //    
 //    if (nd == 1){
+
 //        move(towerorg, towerdest);
 //    
 //        move(towerorg, towerdest);
@@ -58,6 +59,7 @@ int main() {
     int movemnt= 0;
     int depth = 0;
     int pass;
+    int mvmNumber;
     
     showCommands();
     initHeaderInfo(&stateList, nd, nt);
@@ -70,24 +72,38 @@ int main() {
     hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
     
     writeMenu();
+    showMovement(stateList,mvmNumber);
     
     return (0);
 } // main
 
 
+
 void writeMenu() {
     char option;
     int mov;
+    int mvmNumber;
     
+    do{
+ 
     printf("Desea visualizar un movimiento?\n");
     printf("s-\t Elija un movimiento\n");
     printf("n-\t Salir \n"); 
-    scanf ("%c", option);
+    scanf ("%c", &option);
     dump_line(stdin);
     
     switch (option) {
         case 's':
             // funcion mostrar
+            
+            scanf("%i", &mvmNumber);
+            dump_line(stdin);
+            
+            
+            if (mvmNumber !=0){
+        
+            }else {printf("Gracias por usar el programa\n");}
+            
             
         break;
         case 'n':
@@ -96,9 +112,9 @@ void writeMenu() {
         break;
         default:
             printf(COLOR_RED"La opcion introducida es incorrecta\n"COLOR_RESET);
-            
-        break;
-    }
+    } 
+    }while (option != 'n');
+    
 }
 #endif // exemple torres de hanoi : basic
 

@@ -57,7 +57,7 @@ typedef struct{
     char cmdLine[MAXLENGTH500];
     int towerNum;
     int diskNum;
-    char ouputFilename[MAXLENGTH100];
+    char ouputFilename[MAXLENGTH100]; //nombre fichero
     char fileOperations[MAXLENGTH20];
     sDateTime date; 
     sMovesState moveState[MOVESMAX3];

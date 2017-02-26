@@ -33,7 +33,7 @@ void showCommands() {
     printf("w -> Crear un nuevo fichero o aplastar uno existente\n\n"COLOR_RESET);
 }
 
-int inputComands(sHeader *stateList) {
+int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si esta mal el comando
     char cmd[MAXLENGTH100];
     char cmdAux[MAXLENGTH100];
 
@@ -159,7 +159,7 @@ int inputComands(sHeader *stateList) {
             printf(COLOR_GREEN "Comando valido, introducion correcta! \n" COLOR_RESET);      
         } else {
             printf(COLOR_RED "Comando no valido, no se puede introducir %s \n" COLOR_RESET, cmd);
-            fail = 1;
+            fail = 1;  
         }
     }
     
