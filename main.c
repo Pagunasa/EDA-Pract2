@@ -20,6 +20,8 @@
 #include "structs.h"
 #include "listOperations.h"
 #include "filesOperations.h"
+#include "mainOperations.h"
+
 
 //#define NDISCS    5 // Number of discs to consider
 //#define NTOWERS   3 // Number of towers to consider: it cannot be changed in this version
@@ -67,9 +69,36 @@ int main() {
     initTowers(&tower, &stateList);
     hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
     
+    writeMenu();
     
     return (0);
 } // main
 
+
+void writeMenu() {
+    char option;
+    int mov;
+    
+    printf("Desea visualizar un movimiento?\n");
+    printf("s-\t Elija un movimiento\n");
+    printf("n-\t Salir \n"); 
+    scanf ("%c", option);
+    dump_line(stdin);
+    
+    switch (option) {
+        case 's':
+            // funcion mostrar
+            
+        break;
+        case 'n':
+            //salir
+            printf("Gracias por usar el programa\n");
+        break;
+        default:
+            printf(COLOR_RED"La opcion introducida es incorrecta\n"COLOR_RESET);
+            
+        break;
+    }
+}
 #endif // exemple torres de hanoi : basic
 

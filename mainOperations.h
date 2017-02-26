@@ -13,6 +13,7 @@
 #ifndef MAINOPERATIONS_H
 #define	MAINOPERATIONS_H
 
+void writeMenu();
 
 #endif	/* MAINOPERATIONS_H */
 
