@@ -71,15 +71,14 @@ int main() {
     initTowers(&tower, &stateList);
     hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
     
-    writeMenu();
-    showMovement(stateList,mvmNumber);
+    writeMenu(&stateList);
     
     return (0);
 } // main
 
 
 
-void writeMenu() {
+void writeMenu(sHeader *stateList) {
     char option;
     int mov;
     int mvmNumber;
@@ -96,15 +95,16 @@ void writeMenu() {
         case 's':
             // funcion mostrar
             
+            printf("Introduce numero de movimiento: ");
             scanf("%i", &mvmNumber);
             dump_line(stdin);
-            
-            
+ 
             if (mvmNumber !=0){
-        
-            }else {printf("Gracias por usar el programa\n");}
-            
-            
+                showMovement(*stateList,mvmNumber);
+            }
+//            }else {
+//                printf("Gracias por usar el programa\n");
+//            } 
         break;
         case 'n':
             //salir

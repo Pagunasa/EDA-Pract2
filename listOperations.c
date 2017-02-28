@@ -22,39 +22,39 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     int auxDisk = 0;
     int i = 0;
     int k = 0;
-    int disks = MAXOFDISK -1;
-    
+    int disks = MAXOFDISK - 1;
+
     if (towers->TowerInfo[org][i] == 0) {
         do {
             i++;
             auxDisk = towers->TowerInfo[org][i];
         } while (towers->TowerInfo[org][i] == 0);
-            towers->TowerInfo[org][i] = 0;
+        towers->TowerInfo[org][i] = 0;
     } else {
         auxDisk = towers->TowerInfo[org][i];
         towers->TowerInfo[org][i] = 0;
     }
-    
-    if (towers->TowerInfo[dest][k] == 0){
-        do{
-            if(towers->TowerInfo[dest][k] == 0 && towers->TowerInfo[dest][k+1] == 0){
-            }else{
-                if(towers->TowerInfo[dest][k] == 0){
+
+    if (towers->TowerInfo[dest][k] == 0) {
+        do {
+            if (towers->TowerInfo[dest][k] == 0 && towers->TowerInfo[dest][k + 1] == 0) {
+            } else {
+                if (towers->TowerInfo[dest][k] == 0) {
                     towers->TowerInfo[dest][k] = auxDisk;
                 }
             }
-            
-            if (k == disks && towers->TowerInfo[dest][k] == 0){
+
+            if (k == disks && towers->TowerInfo[dest][k] == 0) {
                 towers->TowerInfo[dest][k] = auxDisk;
             }
             k++;
-        }while(k < MAXOFDISK);
+        } while (k < MAXOFDISK);
     } //else {
-//        do {
-//            k++;
-//        } while (towers->TowerInfo[dest][k] != 0);
-//        towers->TowerInfo[dest][k] = auxDisk;
-//    }
+    //        do {
+    //            k++;
+    //        } while (towers->TowerInfo[dest][k] != 0);
+    //        towers->TowerInfo[dest][k] = auxDisk;
+    //    }
 
     //    sTowersState *previous = &towers[(*movemt - 1)];
     //    sTowersState *current = &towers[(*movemt)];
@@ -75,7 +75,7 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     //    current->TowerInfo[org][orgLast + 1] = 0;
     //    current->TowerInfo[dest][destLast + 1] = 0;
 
-    int mvmNumb = (*movemt) -1;
+    int mvmNumb = (*movemt) - 1;
     stateList->moveState[mvmNumb].depth = depth;
     stateList->moveState[mvmNumb].diskMoved = auxDisk;
     stateList->moveState[mvmNumb].towerDest = dest;
@@ -90,10 +90,10 @@ int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *s
         *movemt = (*movemt + 1);
         move(org, dest, movemt, depth, stateList, towers);
     } else {
-        hanoi(nd - 1, org, aux, dest, movemt, depth+ 1, stateList, towers);
+        hanoi(nd - 1, org, aux, dest, movemt, depth + 1, stateList, towers);
         *movemt = (*movemt + 1);
         move(org, dest, movemt, depth, stateList, towers);
-        hanoi(nd - 1, aux, dest, org, movemt, depth+ 1, stateList, towers);
+        hanoi(nd - 1, aux, dest, org, movemt, depth + 1, stateList, towers);
     }
     return 1;
 }// hanoi
@@ -113,14 +113,14 @@ void initTowers(sTowersState *towers, sHeader *stateList) {
     }
 }
 
-void initHeaderInfo(sHeader *stateList, int nd, int nt){
+void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->diskNum = nd;
     strcpy(stateList->fileOperations, "ap");
     strcpy(stateList->ouputFilename, "NULL");
     stateList->towerNum = nt;
 }
-void showMovement(sHeader stateList,int mvmNumber){
-    int movement= mvmNumber-1;
-    printf("Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i ",mvmNumber, stateList.moveState[movement].depth,stateList.moveState[movement].diskMoved,stateList.moveState[movement].towerOrg,stateList.moveState[movement].towerDest);
-    
-                                                   }
+
+void showMovement(sHeader stateList, int mvmNumber) {
+    int movement = mvmNumber - 1;
+    printf("Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i \n", mvmNumber, stateList.moveState[movement].depth, stateList.moveState[movement].diskMoved, stateList.moveState[movement].towerOrg, stateList.moveState[movement].towerDest);
+}
