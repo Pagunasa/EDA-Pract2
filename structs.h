@@ -14,14 +14,17 @@
 #ifndef STRUCTS_H
 #define	STRUCTS_H
 
+#define DEBUG 0
+#define TRUE 0
+#define FALSE 1
 #define MAXLENGTH20 20
 #define MAXLENGTH10 10
 #define MAXLENGTH100 100
 #define MAXLENGTH500 500
 #define MAXOFDISK 3
 #define MAXOFTOWERS 3
-#define MOVESMAX3 7
-#define MOVESMAX4 15
+#define MOVESMAX3 7 //esto desaparecerá
+#define MOVESMAX4 15 //esto desaparecerá
 #define TOWERORIGIN 0
 #define TOWERAUXILIAR 1
 #define TOWERDESTINY 2
@@ -61,9 +64,9 @@ typedef struct{
     int towerNum;
     int diskNum;
     char ouputFilename[MAXLENGTH100]; //nombre fichero
-    char fileOperations[MAXLENGTH20];
+    char fileOperations[MAXLENGTH20]; //ap o wp
     sDateTime date; 
-    sMovesState moveState[MOVESMAX3];
+    sMovesState moveState[MOVESMAX3]; //esto desaparecerá
 }sHeader;
 
 typedef struct{

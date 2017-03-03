@@ -13,7 +13,7 @@
  * Modified: February 2017
  */
 
-#if 1  // exemple torres de hanoi: basic
+#if 1
 
 #include <stdio.h>
 #include <string.h>
@@ -52,7 +52,7 @@
 //}// hanoi
 
 int main() {
-
+    int debug = FALSE;
     int nd = MAXOFDISK, nt = MAXOFTOWERS;
     sHeader stateList;
     sTowersState tower;
@@ -64,7 +64,6 @@ int main() {
     int movemnt= 1;
     int depth = 0;
     int pass;
-    int mvmNumber;
     
     showCommands();
     initHeaderInfo(&stateList, nd, nt);
@@ -74,15 +73,17 @@ int main() {
     }while(pass != 0);
     
     initTowers(&tower, &stateList);
-    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower, &node);
-    showList(&node);
-
+    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower, &node, debug);
+    printf(COLOR_GREEN "\nMovimientos completados correctamente. \n\n" COLOR_RESET);
+    
+    if(debug == TRUE){
+        showList(&node);
+    }
+    
     writeMenu(&stateList);
     
     return (0);
 } // main
-
-
 
 void writeMenu(sHeader *stateList) {
     char option;
@@ -122,5 +123,4 @@ void writeMenu(sHeader *stateList) {
     }while (option != 'n');
     
 }
-#endif // exemple torres de hanoi : basic
-
+#endif 

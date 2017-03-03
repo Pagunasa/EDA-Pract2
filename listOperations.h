@@ -13,8 +13,8 @@
 #ifndef LISTOPERATIONS_H
 #define	LISTOPERATIONS_H
 
-int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node);
-int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node);
+int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug);
+int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug);
 void initTowers(sTowersState *towers, sHeader *stateList);
 void initHeaderInfo(sHeader *stateList, int nd, int nt);
 void showMovement(sHeader stateList,int mvmNumber);
