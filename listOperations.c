@@ -14,16 +14,17 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "structs.h"
 #include "listOperations.h"
 
-int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers) {
+int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node) {
 
     int auxDisk = 0;
     int i = 0;
     int k = 0;
     int disks = MAXOFDISK - 1;
-
+    
     if (towers->TowerInfo[org][i] == 0) {
         do {
             i++;
@@ -82,18 +83,21 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     stateList->moveState[mvmNumb].towerOrg = org;
     towers->moves = (*movemt);
     printf("Move one disc from %d to %d\n", org, dest);
+    
+    pushList(node, depth, org, dest, auxDisk, mvmNumb);
+    
     return 1;
 }
 
-int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers) {
+int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node) {
     if (nd == 1) {
         *movemt = (*movemt + 1);
-        move(org, dest, movemt, depth, stateList, towers);
+        move(org, dest, movemt, depth, stateList, towers, node);
     } else {
-        hanoi(nd - 1, org, aux, dest, movemt, depth + 1, stateList, towers);
+        hanoi(nd - 1, org, aux, dest, movemt, depth + 1, stateList, towers, node);
         *movemt = (*movemt + 1);
-        move(org, dest, movemt, depth, stateList, towers);
-        hanoi(nd - 1, aux, dest, org, movemt, depth + 1, stateList, towers);
+        move(org, dest, movemt, depth, stateList, towers, node);
+        hanoi(nd - 1, aux, dest, org, movemt, depth + 1, stateList, towers, node);
     }
     return 1;
 }// hanoi
@@ -123,4 +127,43 @@ void initHeaderInfo(sHeader *stateList, int nd, int nt) {
 void showMovement(sHeader stateList, int mvmNumber) {
     int movement = mvmNumber - 1;
     printf("Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i \n", mvmNumber, stateList.moveState[movement].depth, stateList.moveState[movement].diskMoved, stateList.moveState[movement].towerOrg, stateList.moveState[movement].towerDest);
+}
+
+void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb) {
+    sMovesState *movement;
+    movement = (sMovesState *) malloc(sizeof (sMovesState));
+    movement->mvmNumb = mvmNumb;
+    movement->depth = depth;
+    movement->towerOrg = towerOrg;
+    movement->towerDest = towerDest;
+    movement->diskMoved = diskMoved;
+
+    if (node->firstElement == NULL) {
+        node->firstElement = movement;
+        movement->next = NULL;
+        movement->prev = NULL;
+    } else {
+        movement->next = NULL;
+        movement->prev = node->firstElement;
+        node->firstElement->next = movement;
+        node->firstElement = movement;
+    }
+    node->size++;
+}
+
+void initList(sNode *node){
+    node->firstElement = NULL;
+    node->moveState = NULL;
+    node->size = 0;
+}
+
+void showList(sNode *node){
+    
+    sMovesState *movement;
+    movement = node->firstElement;
+    
+    for (int i = 0; i < node->size; i++){
+        printf("Move count %i, Rec Depth %i: it moves disc %i from T%i to T%i \n", movement->mvmNumb, movement->depth, movement->diskMoved, movement->towerOrg, movement->towerDest);
+        movement = movement->prev;
+    }
 }

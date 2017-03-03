@@ -46,11 +46,14 @@ typedef struct{
 }sDateTime;
 
 
-typedef struct{
+typedef struct movement{
+    int mvmNumb;
     int depth;
     int towerOrg;
     int towerDest;
     int diskMoved;
+    struct movement *prev;
+    struct movement *next;
 }sMovesState;
 
 typedef struct{
@@ -62,6 +65,12 @@ typedef struct{
     sDateTime date; 
     sMovesState moveState[MOVESMAX3];
 }sHeader;
+
+typedef struct{
+    sMovesState *moveState;
+    sMovesState *firstElement;
+    int size;
+}sNode;
 
 typedef struct{
     int moves;

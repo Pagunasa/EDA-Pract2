@@ -56,7 +56,12 @@ int main() {
     int nd = MAXOFDISK, nt = MAXOFTOWERS;
     sHeader stateList;
     sTowersState tower;
-    int movemnt= 0;
+    
+    //Inicio del primer intento de recursividad
+    sNode node;
+    initList(&node);
+    
+    int movemnt= 1;
     int depth = 0;
     int pass;
     int mvmNumber;
@@ -69,8 +74,9 @@ int main() {
     }while(pass != 0);
     
     initTowers(&tower, &stateList);
-    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower);
-    
+    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower, &node);
+    showList(&node);
+
     writeMenu(&stateList);
     
     return (0);
