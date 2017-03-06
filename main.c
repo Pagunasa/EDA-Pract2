@@ -56,32 +56,52 @@ int main() {
     int nd = MAXOFDISK, nt = MAXOFTOWERS;
     sHeader stateList;
     sTowersState tower;
-    
+    int **TowerInfo = 0;
+
     //Inicio del primer intento de recursividad
     sNode node;
     initList(&node);
-    
-    int movemnt= 1;
+
+    int movemnt = 1;
     int depth = 0;
     int pass;
-    
+
     showCommands();
     initHeaderInfo(&stateList, nd, nt);
-        
-    do{
+
+    do {
         pass = inputComands(&stateList);
-    }while(pass != 0);
-    
-    initTowers(&tower, &stateList);
-    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower, &node, debug);
-    printf(COLOR_GREEN "\nMovimientos completados correctamente. \n\n" COLOR_RESET);
-    
-    if(debug == TRUE){
+    } while (pass != 0);
+
+    initMatrix(&TowerInfo, stateList.diskNum, stateList.towerNum);
+
+    if (debug == TRUE) {
+        for (int i = 0; i < stateList.towerNum; i++) {
+            printf("\n");
+            for (int j = 0; j < stateList.diskNum; j++)
+                printf("%d \n", TowerInfo[i][j]);
+        }
+    }
+
+    //initTowers(&tower, &stateList);
+    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower, &node, debug, &TowerInfo);
+    printf("\nMovimientos completados correctamente. \n\n");
+
+    if (debug == TRUE) {
+        for (int i = 0; i < stateList.towerNum; i++) {
+            printf("\n");
+            for (int j = 0; j < stateList.diskNum; j++)
+                printf("%d \n", TowerInfo[i][j]);
+        }
+    }
+
+
+    if (debug == TRUE) {
         showList(&node);
     }
-    
+
     writeMenu(&stateList);
-    
+
     return (0);
 } // main
 
@@ -89,38 +109,38 @@ void writeMenu(sHeader *stateList) {
     char option;
     int mov;
     int mvmNumber;
-    
-    do{
- 
-    printf("Desea visualizar un movimiento?\n");
-    printf("s-\t Elija un movimiento\n");
-    printf("n-\t Salir \n"); 
-    scanf ("%c", &option);
-    dump_line(stdin);
-    
-    switch (option) {
-        case 's':
-            // funcion mostrar
-            
-            printf("Introduce numero de movimiento: ");
-            scanf("%i", &mvmNumber);
-            dump_line(stdin);
- 
-            if (mvmNumber !=0){
-                showMovement(*stateList,mvmNumber);
-            }
-//            }else {
-//                printf("Gracias por usar el programa\n");
-//            } 
-        break;
-        case 'n':
-            //salir
-            printf("Gracias por usar el programa\n");
-        break;
-        default:
-            printf(COLOR_RED"La opcion introducida es incorrecta\n"COLOR_RESET);
-    } 
-    }while (option != 'n');
-    
+
+    do {
+
+        printf("Desea visualizar un movimiento?\n");
+        printf("s-\t Elija un movimiento\n");
+        printf("n-\t Salir \n");
+        scanf("%c", &option);
+        dump_line(stdin);
+
+        switch (option) {
+            case 's':
+                // funcion mostrar
+
+                printf("Introduce numero de movimiento: ");
+                scanf("%i", &mvmNumber);
+                dump_line(stdin);
+
+                if (mvmNumber != 0) {
+                    showMovement(*stateList, mvmNumber);
+                }
+                //            }else {
+                //                printf("Gracias por usar el programa\n");
+                //            } 
+                break;
+            case 'n':
+                //salir
+                printf("Gracias por usar el programa\n");
+                break;
+            default:
+                printf(COLOR_RED"La opcion introducida es incorrecta\n"COLOR_RESET);
+        }
+    } while (option != 'n');
+
 }
 #endif 

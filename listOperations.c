@@ -18,39 +18,68 @@
 #include "structs.h"
 #include "listOperations.h"
 
-int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug) {
+int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug, int ***TowerInfo) {
 
     int auxDisk = 0;
     int i = 0;
     int k = 0;
-    int disks = MAXOFDISK - 1; //MAXOFDISK se convertiria en stateList->diskNum
+    int disks = stateList->diskNum - 1; //MAXOFDISK se convertiria en stateList->diskNum
 
-    if (towers->TowerInfo[org][i] == 0) {
+    if ((*TowerInfo)[org][i] == 0) {
         do {
             i++;
-            auxDisk = towers->TowerInfo[org][i];
-        } while (towers->TowerInfo[org][i] == 0);
-        towers->TowerInfo[org][i] = 0;
+            auxDisk = (*TowerInfo)[org][i];
+        } while ((*TowerInfo)[org][i] == 0);
+        (*TowerInfo)[org][i] = 0;
     } else {
-        auxDisk = towers->TowerInfo[org][i];
-        towers->TowerInfo[org][i] = 0;
+        auxDisk = (*TowerInfo)[org][i];
+        (*TowerInfo)[org][i] = 0;
     }
 
-    if (towers->TowerInfo[dest][k] == 0) {
+    if ((*TowerInfo)[dest][k] == 0) {
         do {
-            if (towers->TowerInfo[dest][k] == 0 && towers->TowerInfo[dest][k + 1] == 0) {
+            if ((*TowerInfo)[dest][k] == 0 && (*TowerInfo)[dest][k + 1] == 0) {
             } else {
-                if (towers->TowerInfo[dest][k] == 0) {
-                    towers->TowerInfo[dest][k] = auxDisk;
+                if ((*TowerInfo)[dest][k] == 0) {
+                    (*TowerInfo)[dest][k] = auxDisk;
                 }
             }
 
-            if (k == disks && towers->TowerInfo[dest][k] == 0) {
-                towers->TowerInfo[dest][k] = auxDisk;
+            if (k == disks && (*TowerInfo)[dest][k] == 0) {
+                (*TowerInfo)[dest][k] = auxDisk;
             }
             k++;
-        } while (k < MAXOFDISK); //MAXOFDISK se convertiria en stateList->diskNum
-    } //else {
+        } while (k < stateList->diskNum);
+    }
+
+    //    if (towers->TowerInfo[org][i] == 0) {
+    //        do {
+    //            i++;
+    //            auxDisk = towers->TowerInfo[org][i];
+    //        } while (towers->TowerInfo[org][i] == 0);
+    //        towers->TowerInfo[org][i] = 0;
+    //    } else {
+    //        auxDisk = towers->TowerInfo[org][i];
+    //        towers->TowerInfo[org][i] = 0;
+    //    }
+    //
+    //    if (towers->TowerInfo[dest][k] == 0) {
+    //        do {
+    //            if (towers->TowerInfo[dest][k] == 0 && towers->TowerInfo[dest][k + 1] == 0) {
+    //            } else {
+    //                if (towers->TowerInfo[dest][k] == 0) {
+    //                    towers->TowerInfo[dest][k] = auxDisk;
+    //                }
+    //            }
+    //
+    //            if (k == disks && towers->TowerInfo[dest][k] == 0) {
+    //                towers->TowerInfo[dest][k] = auxDisk;
+    //            }
+    //            k++;
+    //        } while (k < stateList->diskNum - 1); //MAXOFDISK se convertiria en stateList->diskNum
+    //    } 
+
+    //else {
     //        do {
     //            k++;
     //        } while (towers->TowerInfo[dest][k] != 0);
@@ -84,7 +113,7 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     towers->moves = (*movemt); //esto no hara falta 
 
     if (debug == TRUE) {
-        printf("Move one disc from %d to %d\n", org, dest);
+        printf("Move disc %i from %d to %d\n", auxDisk, org, dest);
     }
 
     pushList(node, depth, org, dest, auxDisk, mvmNumb);
@@ -92,18 +121,37 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     return 1;
 }
 
-int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug) {
+int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug, int ***TowerInfo) {
     if (nd == 1) {
         *movemt = (*movemt + 1);
-        move(org, dest, movemt, depth, stateList, towers, node, debug);
+        move(org, dest, movemt, depth, stateList, towers, node, debug, TowerInfo);
     } else {
-        hanoi(nd - 1, org, aux, dest, movemt, depth + 1, stateList, towers, node, debug);
+        hanoi(nd - 1, org, aux, dest, movemt, depth + 1, stateList, towers, node, debug, TowerInfo);
         *movemt = (*movemt + 1);
-        move(org, dest, movemt, depth, stateList, towers, node, debug);
-        hanoi(nd - 1, aux, dest, org, movemt, depth + 1, stateList, towers, node, debug);
+        move(org, dest, movemt, depth, stateList, towers, node, debug, TowerInfo);
+        hanoi(nd - 1, aux, dest, org, movemt, depth + 1, stateList, towers, node, debug, TowerInfo);
     }
     return 1;
 }// hanoi
+
+void initMatrix(int ***TowerInfo, int columnas, int filas) {
+    //    TowerInfo[MAXOFTOWERS] = (int*) malloc(3 * sizeof (int));
+    *TowerInfo = malloc(filas * sizeof (int *));
+
+    for (int i = 0; i < filas; i++)
+        (*TowerInfo)[i] = malloc(columnas * sizeof (int *));
+
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            if (i == 0) {
+                (*TowerInfo)[i][j] = j + 1;
+
+            } else {
+                (*TowerInfo)[i][j] = 0;
+            }
+        }
+    }
+}
 
 void initTowers(sTowersState *towers, sHeader *stateList) { //la matriz se converiria a una dinamica!!
     towers->moves = 0;
@@ -118,7 +166,7 @@ void initTowers(sTowersState *towers, sHeader *stateList) { //la matriz se conve
             }
         }
     }
-}
+} //esto desaparecera
 
 void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->diskNum = nd;

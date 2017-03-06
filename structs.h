@@ -77,8 +77,8 @@ typedef struct{
 
 typedef struct{
     int moves;
-    int TowerInfo[MAXOFTOWERS][MAXOFDISK];
-}sTowersState;
+    int TowerInfo[MAXOFTOWERS][MAXOFDISK];//esto desaparecera
+}sTowersState; //seguramente desaparecera
 
 
 
