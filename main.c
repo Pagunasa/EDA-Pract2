@@ -101,49 +101,53 @@ int main() {
         showList(&node);
     }
 
-    writeMenu(node);
+  // writeMenu(node);
 
     return (0);
 } // main
 
 void writeMenu(sNode Node) {
-    char option;
+    int option;
     int mov;
     int mvmNumber;
 
     do {
 
         printf("Desea visualizar un movimiento?\n");
-        printf("s-\t Elija un movimiento\n");
-        printf("n-\t Salir \n");
-//        option = 's';
-        scanf("%c", &option);
+        printf("1-\t Elija un movimiento\n");
+        printf("2-\t Salir \n");
+        //        option = 's';
+
+        //        dump_line(stdin);
+        //fseek(stdin,0,SEEK_END);
+        scanf("%i", option);
         dump_line(stdin);
 
         switch (option) {
-            case 's':
+            case 1:
                 // funcion mostrar
                 printf("Total de movimentos: %i\n", Node.size);
                 printf("Introduce numero de movimiento: ");
-                //mvmNumber = 3;
+                // mvmNumber = 3;
+                // dump_line(stdin);
                 scanf("%i", &mvmNumber);
                 dump_line(stdin);
 
                 if (mvmNumber != 0) {
                     showMovement(Node, mvmNumber);
                 }
-                //            }else {
-                //                printf("Gracias por usar el programa\n");
-                //            } 
+                // }else {
+                //   printf("Gracias por usar el programa\n");
+                // } 
                 break;
-            case 'n':
+            case 2:
                 //salir
                 printf("Gracias por usar el programa\n");
                 break;
             default:
                 printf("La opcion introducida es incorrecta\n");
         }
-    } while (option != 'n');
+    } while (option != 2);
 
 }
 #endif 
