@@ -14,9 +14,9 @@
 #ifndef STRUCTS_H
 #define	STRUCTS_H
 
-#define DEBUG 0
 #define TRUE 0
 #define FALSE 1
+#define DEBUG TRUE
 #define MAXLENGTH20 20
 #define MAXLENGTH10 10
 #define MAXLENGTH100 100
@@ -55,6 +55,7 @@ typedef struct movement{
     int towerOrg;
     int towerDest;
     int diskMoved;
+    int **towerStatus;
     struct movement *prev;
     struct movement *next;
 }sMovesState;
@@ -70,7 +71,7 @@ typedef struct{
 }sHeader;
 
 typedef struct{
-    sMovesState *moveState;
+   // sMovesState *moveState;
     sMovesState *firstElement;
     int size;
 }sNode;

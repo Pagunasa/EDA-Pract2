@@ -94,7 +94,8 @@ int main() {
                 printf("%d \n", TowerInfo[i][j]);
         }
     }
-
+    
+    freeTheMemoryMatrix(&TowerInfo, stateList.towerNum);
 
     if (debug == TRUE) {
         showList(&node);
@@ -115,13 +116,14 @@ void writeMenu(sNode Node) {
         printf("Desea visualizar un movimiento?\n");
         printf("s-\t Elija un movimiento\n");
         printf("n-\t Salir \n");
+        option = 's';
         scanf("%c", &option);
         dump_line(stdin);
 
         switch (option) {
             case 's':
                 // funcion mostrar
-
+                printf("Total de movimentos: %i\n", Node.size);
                 printf("Introduce numero de movimiento: ");
                 scanf("%i", &mvmNumber);
                 dump_line(stdin);
@@ -138,7 +140,7 @@ void writeMenu(sNode Node) {
                 printf("Gracias por usar el programa\n");
                 break;
             default:
-                printf(COLOR_RED"La opcion introducida es incorrecta\n"COLOR_RESET);
+                printf( "La opcion introducida es incorrecta\n" );
         }
     } while (option != 'n');
 

@@ -22,8 +22,10 @@ void initTowers(sTowersState *towers, sHeader *stateList);
 void initHeaderInfo(sHeader *stateList, int nd, int nt);
 void showMovement(sNode node,int mvmNumber);
 void initList(sNode *node);
-void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb);
+void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb, int **towerStatus, sHeader *stateList);
 void showList(sNode *node);
+void freeTheMemoryMatrix(int ***TowerInfo, int filas);
+void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas);
 
 #endif	/* LISTOPERATIONS_H */
 
