@@ -94,7 +94,7 @@ int main() {
                 printf("%d \n", TowerInfo[i][j]);
         }
     }
-    
+
     freeTheMemoryMatrix(&TowerInfo, stateList.towerNum);
 
     if (debug == TRUE) {
@@ -116,7 +116,6 @@ void writeMenu(sNode Node) {
         printf("Desea visualizar un movimiento?\n");
         printf("s-\t Elija un movimiento\n");
         printf("n-\t Salir \n");
-        option = 's';
         scanf("%c", &option);
         dump_line(stdin);
 
@@ -140,7 +139,7 @@ void writeMenu(sNode Node) {
                 printf("Gracias por usar el programa\n");
                 break;
             default:
-                printf( "La opcion introducida es incorrecta\n" );
+                printf("La opcion introducida es incorrecta\n");
         }
     } while (option != 'n');
 

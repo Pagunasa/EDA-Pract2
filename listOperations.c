@@ -196,7 +196,6 @@ void showMovement(sNode node, int mvmNumber) { //ya no se podra hacer asi por el
 }
 
 void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas) {
-    for (int i = 0; i < filas; i++)
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 (*TowerInfo)[i][j] = TowerTCpy[i][j];
@@ -212,7 +211,7 @@ void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved
     movement->towerOrg = towerOrg;
     movement->towerDest = towerDest;
     movement->diskMoved = diskMoved;
-    initMatrix(&movement->towerStatus, stateList->towerNum, stateList->diskNum);
+    initMatrix(&movement->towerStatus, stateList->diskNum, stateList->towerNum);
     cpyMtr(&movement->towerStatus, towerStatus, stateList->towerNum, stateList->diskNum);
 
 
