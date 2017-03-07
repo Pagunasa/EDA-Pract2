@@ -116,6 +116,7 @@ void writeMenu(sNode Node) {
         printf("Desea visualizar un movimiento?\n");
         printf("s-\t Elija un movimiento\n");
         printf("n-\t Salir \n");
+//        option = 's';
         scanf("%c", &option);
         dump_line(stdin);
 
@@ -124,6 +125,7 @@ void writeMenu(sNode Node) {
                 // funcion mostrar
                 printf("Total de movimentos: %i\n", Node.size);
                 printf("Introduce numero de movimiento: ");
+                //mvmNumber = 3;
                 scanf("%i", &mvmNumber);
                 dump_line(stdin);
 
