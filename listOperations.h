@@ -20,7 +20,7 @@ void initMatrix(int ***TowerInfo, int columnas, int filas);
 void initTowers(sTowersState *towers, sHeader *stateList);
 //<--
 void initHeaderInfo(sHeader *stateList, int nd, int nt);
-void showMovement(sHeader stateList,int mvmNumber);
+void showMovement(sNode node,int mvmNumber);
 void initList(sNode *node);
 void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb);
 void showList(sNode *node);

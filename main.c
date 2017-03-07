@@ -100,12 +100,12 @@ int main() {
         showList(&node);
     }
 
-    writeMenu(&stateList);
+    writeMenu(node);
 
     return (0);
 } // main
 
-void writeMenu(sHeader *stateList) {
+void writeMenu(sNode Node) {
     char option;
     int mov;
     int mvmNumber;
@@ -127,7 +127,7 @@ void writeMenu(sHeader *stateList) {
                 dump_line(stdin);
 
                 if (mvmNumber != 0) {
-                    showMovement(*stateList, mvmNumber);
+                    showMovement(Node, mvmNumber);
                 }
                 //            }else {
                 //                printf("Gracias por usar el programa\n");

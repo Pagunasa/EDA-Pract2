@@ -175,9 +175,13 @@ void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->towerNum = nt;
 }
 
-void showMovement(sHeader stateList, int mvmNumber) { //ya no se podra hacer asi por el dinamismo
+void showMovement(sNode node, int mvmNumber) { //ya no se podra hacer asi por el dinamismo
     int movement = mvmNumber - 1;
-    printf("Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i \n", mvmNumber, stateList.moveState[movement].depth, stateList.moveState[movement].diskMoved, stateList.moveState[movement].towerOrg, stateList.moveState[movement].towerDest);
+    int aux;
+    //printf("Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i \n", mvmNumber, stateList.moveState[movement].depth, stateList.moveState[movement].diskMoved, stateList.moveState[movement].towerOrg, stateList.moveState[movement].towerDest);
+    for (int i=0; i<mvmNumber; i++){
+        if (mvmNumber = movement);
+    }
 }
 
 void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb) {
