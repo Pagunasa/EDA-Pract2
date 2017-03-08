@@ -106,11 +106,11 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *n
     //    current->TowerInfo[dest][destLast + 1] = 0;
 
     int mvmNumb = (*movemt) - 1; //esto no hara falta 
-//    stateList->moveState[mvmNumb].depth = depth; //esto no hara falta 
-//    stateList->moveState[mvmNumb].diskMoved = auxDisk; //esto no hara falta 
-//    stateList->moveState[mvmNumb].towerDest = dest; //esto no hara falta 
-//    stateList->moveState[mvmNumb].towerOrg = org; //esto no hara falta 
-// towers->moves = (*movemt); //esto no hara falta 
+    //    stateList->moveState[mvmNumb].depth = depth; //esto no hara falta 
+    //    stateList->moveState[mvmNumb].diskMoved = auxDisk; //esto no hara falta 
+    //    stateList->moveState[mvmNumb].towerDest = dest; //esto no hara falta 
+    //    stateList->moveState[mvmNumb].towerOrg = org; //esto no hara falta 
+    // towers->moves = (*movemt); //esto no hara falta 
 
     if (DEBUG == TRUE) {
         printf(STRDBG1, auxDisk, org, dest);
@@ -136,21 +136,11 @@ int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *s
 
 void initMatrix(int ***TowerInfo, int columnas, int filas) {
     *TowerInfo = malloc(filas * sizeof (int *));
-
     ERRORMEMORY((*TowerInfo == NULL), (COLOR_RED STRERRORMEMORY COLOR_RESET));
-//    if (*TowerInfo == NULL) {
-//        printf(COLOR_RED STRERRORMEMORY COLOR_RESET);
-//        exit(0);
-//    }
 
     for (int i = 0; i < filas; i++) {
         (*TowerInfo)[i] = malloc(columnas * sizeof (int *));
-        
         ERRORMEMORY(((*TowerInfo)[i] == NULL), (COLOR_RED STRERRORMEMORY COLOR_RESET));
-//        if ((*TowerInfo)[i] == NULL) {
-//            printf(COLOR_RED STRERRORMEMORY COLOR_RESET);
-//            exit(0);
-//        }
     }
 
     for (int i = 0; i < filas; i++) {
@@ -172,23 +162,144 @@ void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->towerNum = nt;
 }
 
-void showMovement(sNode node, int mvmNumber) {
-
+void showMovement(sNode node, sHeader stateList, int mvmNumber) {
     sMovesState *movementAux; //sera nuestro auxiliar
     movementAux = node.firstElement;
 
     for (int i = 0; i < node.size; i++) {
         if (mvmNumber == movementAux->mvmNumb) {
             printf(STRSHWMVM, mvmNumber, movementAux->depth, movementAux->diskMoved, movementAux->towerOrg, movementAux->towerDest);
-            //            for (int i = 0; i < 3; i++) {
-            //                printf("\n");
-            //                for (int j = 0; j < 6; j++)
-            //                    printf("%d \n", movementAux->towerStatus[i][j]);
-            //            }
+            showMtr(movementAux->towerStatus, stateList);
         }
         movementAux = movementAux->prev;
     }
 }
+
+//-----------------------------------------------------------------------------------//
+
+void showMtr(int **MvmState, sHeader stateList) {
+    int sizeOfString = stateList.diskNum * (stateList.towerNum * (stateList.diskNum + 1)) * 4;
+    char myTxt[sizeOfString], myTxtAux[sizeOfString], myTxtAux1[sizeOfString], myTxtAux2[sizeOfString], myTxtAux3[sizeOfString];
+    int e, pos0, pos1, pos2, rep;
+    strlcpy(myTxt, STRWHTSPACE, sizeof (myTxt));
+    rep = stateList.diskNum - 1;
+
+    //for (int i = 0; i < stateList.towerNum; i++) {
+    //strlcpy(myTxt, STRWHTSPACE, sizeof(myTxt));
+    e = 0;
+    pos0 = 0;
+    pos1 = 1;
+    pos2 = 2;
+
+    for (int j = 0; j < stateList.diskNum; j++) {
+        strlcpy(myTxtAux1, STRWHTSPACE, sizeof (myTxtAux1));
+        strlcpy(myTxtAux2, STRWHTSPACE, sizeof (myTxtAux2));
+        strlcpy(myTxtAux3, STRWHTSPACE, sizeof (myTxtAux3));
+        //            do {
+        //                //strlcat(myTxt, STRWHTSPACE, sizeof (myTxt));
+        //                //snprintf(myTxt, sizeof (myTxt), STRPROF, j);
+        //                //strlcat(myTxt, STRPROF, sizeof (myTxt));
+        //                if (e == rep / 2) {
+        //                    strlcat(myTxt, STRSEPA, sizeof (myTxt));
+        //                } else {
+        //                    strlcat(myTxt, STREMPTY, sizeof (myTxt));
+        //                }
+        //                //strlcat(myTxt, STRWHTSPACE, sizeof (myTxt));
+        //                 e++;
+        //            } while (e <= rep);
+        // strlcat(myTxt, STRJMP, sizeof (myTxt));
+
+        do {
+            strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
+            e++;
+        } while (e < stateList.diskNum);
+        strlcat(myTxtAux1, STRSEPA, sizeof (myTxtAux1));
+        e = 0;
+        do {
+            strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
+            e++;
+        } while (e < stateList.diskNum);
+        e = 0;
+
+        do {
+            strlcat(myTxtAux2, STREMPTY, sizeof (myTxtAux2));
+            e++;
+        } while (e < stateList.diskNum);
+        strlcat(myTxtAux2, STRSEPA, sizeof (myTxtAux2));
+        e = 0;
+        do {
+            strlcat(myTxtAux2, STREMPTY, sizeof (myTxtAux2));
+            e++;
+        } while (e < stateList.diskNum);
+        e = 0;
+
+        do {
+            strlcat(myTxtAux3, STREMPTY, sizeof (myTxtAux3));
+            e++;
+        } while (e < stateList.diskNum);
+        strlcat(myTxtAux3, STRSEPA, sizeof (myTxtAux3));
+        e = 0;
+        do {
+            strlcat(myTxtAux3, STREMPTY, sizeof (myTxtAux3));
+            e++;
+        } while (e < stateList.diskNum);
+        e = 0;
+
+        //snprintf(myTxtAux, sizeof (myTxt), "H %i\t%i\t%i\t%i", rep, MvmState[pos0][j], MvmState[pos1][j], MvmState[pos2][j]);
+        snprintf(myTxtAux, sizeof (myTxt), "H %i\t%s\t%s\t%s", rep, myTxtAux1, myTxtAux2, myTxtAux3);
+        strlcat(myTxt, myTxtAux, sizeof (myTxt));
+        //printf("H %i\t%i\t%i\t%i", rep,MvmState[pos0][j], MvmState[pos1][j], MvmState[pos2][j]);
+        //printf("\n");
+        strlcat(myTxt, STRJMP, sizeof (myTxt));
+        rep--;
+
+    }
+    //strlcat(myTxt, STRJMP, sizeof (myTxt));
+    //}
+
+
+    printf("%s \n", myTxt);
+
+
+    //strlcat(myTxt, "\t", sizeof (myTxt));
+    //        for (int j = 0; j < stateList.diskNum; j++) {
+    //            e = 0;
+    //
+    //            do {
+    //                if (MvmState[i][j] != 0) {
+    //                    if (e < MvmState[i][j]) {
+    //                        printf(STRDSK);
+    //                    } else {
+    //                        printf(STREMPTY);
+    //                    }
+    //                } else {
+    //                    printf(STREMPTY);
+    //                }
+    //                e++;
+    //            } while (e < stateList.diskNum);
+    //            printf(STRSEPA);
+    //            e = 0;
+    //            do {
+    //                if (MvmState[i][j] != 0) {
+    //                    if (e < MvmState[i][j]) {
+    //                        printf(STRDSK);
+    //                    } else {
+    //                        printf(STREMPTY);
+    //                    }
+    //                } else {
+    //                    printf(STREMPTY);
+    //                }
+    //                e++;
+    //            } while (e < stateList.diskNum);
+    //
+    //            printf("\n");
+    //
+    //
+    //        }
+    // }
+
+}
+//-----------------------------------------------------------------------------------//
 
 void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas) {
     for (int i = 0; i < filas; i++) {
@@ -201,14 +312,9 @@ void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas) {
 void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb, int **towerStatus, sHeader *stateList) {
     sMovesState *movement;
     movement = (sMovesState *) malloc(sizeof (sMovesState));
-    
+
     ERRORMEMORY((movement == NULL), (COLOR_RED STRERRORMEMORY COLOR_RESET));
-//
-//    if(movement == NULL){
-//        printf(COLOR_RED STRERRORMEMORY COLOR_RESET);
-//        exit(0);
-//    }
-    
+
     movement->mvmNumb = mvmNumb;
     movement->depth = depth;
     movement->towerOrg = towerOrg;

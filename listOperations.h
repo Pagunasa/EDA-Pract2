@@ -19,12 +19,13 @@ int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *s
 int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *node, int ***TowerInfo);
 void initMatrix(int ***TowerInfo, int columnas, int filas);
 void initHeaderInfo(sHeader *stateList, int nd, int nt);
-void showMovement(sNode node,int mvmNumber);
+void showMovement(sNode node, sHeader stateList,int mvmNumber);
 void initList(sNode *node);
 void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb, int **towerStatus, sHeader *stateList);
 void showList(sNode *node);
 void freeTheMemoryMatrix(int ***TowerInfo, int filas);
 void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas);
+void showMtr(int **MvmState, sHeader stateList);
 
 #endif	/* LISTOPERATIONS_H */
 

@@ -22,22 +22,22 @@
 
 
 void showCommands() {
-    printf("Los commandos para operar son: \n");
-    printf(COLOR_MAGENTA "hanoiplus" COLOR_RESET);
-    printf(COLOR_CYAN " -d <numero de discos>" COLOR_RESET);
-    printf(COLOR_YELLOW " -f <nombre del fichero>" COLOR_RESET);
-    printf(COLOR_GREEN " -o <codigo de operacion> \n\n" COLOR_RESET);
+    printf(STRSHOW1);
+    printf(COLOR_MAGENTA STRCMD1 COLOR_RESET);
+    printf(COLOR_CYAN STRCMD2 COLOR_RESET);
+    printf(COLOR_YELLOW STRCMD3 COLOR_RESET);
+    printf(COLOR_GREEN STRCMD4 COLOR_RESET);
 
-    printf("Los codigos de operacion son: \n");
-    printf(COLOR_GREEN "ap -> Guardar la informacion en un fichero existente\n");
-    printf("w -> Crear un nuevo fichero o aplastar uno existente\n\n"COLOR_RESET);
+    printf(STRSHOW2);
+    printf(COLOR_GREEN STROPTION1);
+    printf(STROPTION2 COLOR_RESET);
 }
 
 int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si esta mal el comando
     char cmd[MAXLENGTH100];
     char cmdAux[MAXLENGTH100];
 
-    printf("Introduce el comando: \n");
+    printf(STRINPUTCMD);
     scanf("%[^\n]", cmd);
     dump_line(stdin);
 
@@ -78,7 +78,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                             if (intAux != 0) {
                                 stateList->diskNum = intAux;
                             } else {
-                                printf(COLOR_RED "Comando no valido, el numero de discos no se puede ser -d %s \n" COLOR_RESET, cmdAux);
+                                printf(COLOR_RED STRERRORCMDDSK COLOR_RESET, cmdAux);
                                 fail = 1;
                             }
                             i = a - 1;
@@ -97,7 +97,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                             }
 
                             if (strcmp(cmdAux, "-d") == 0 || strcmp(cmdAux, "-o") == 0 || strcmp(cmdAux, "-f") == 0) {
-                                printf(COLOR_RED "Comando no valido, no se puede llamar al fichero %s \n" COLOR_RESET, cmdAux);
+                                printf(COLOR_RED STRERRORCMDFL COLOR_RESET, cmdAux);
                                 fail = 1;
                             } else {
                                 strcpy(stateList->ouputFilename, cmdAux);
@@ -125,7 +125,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                                 intAux++;
                             }
                             if(intAux == 2){
-                                printf(COLOR_RED "Comando no valido, no se puede introducir -o %s \n" COLOR_RESET, cmdAux);
+                                printf(COLOR_RED STRERRORCMDOPT COLOR_RESET, cmdAux);
                                 fail = 1;
                             }else{
                                 strcpy(stateList->fileOperations, cmdAux);
@@ -135,7 +135,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                             memset(cmdAux, '\0', strlen(cmdAux));
                             j = -1;
                         } else {
-                            printf(COLOR_RED "Comando no valido, no se puede introducir %s \n" COLOR_RESET, cmdAux);
+                            printf(COLOR_RED STRERRORCMD COLOR_RESET, cmdAux);
                             fail = 1;
                             i = strlen(cmd);
                         }
@@ -145,7 +145,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                 }
 
             } else {
-                printf(COLOR_RED "Comando no valido, no se puede introducir %s \n" COLOR_RESET, cmdAux);
+                printf(COLOR_RED STRERRORCMD COLOR_RESET, cmdAux);
                 fail = 1;
                 i = strlen(cmd);
             }
@@ -156,9 +156,9 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
 
     if (moreCmds == 0) {
         if (strcmp(cmd, "hanoiplus") == 0) {
-            printf(COLOR_GREEN "Comando valido, introducion correcta! \n" COLOR_RESET);      
+            printf(COLOR_GREEN STRPASSCMD COLOR_RESET);      
         } else {
-            printf(COLOR_RED "Comando no valido, no se puede introducir %s \n" COLOR_RESET, cmd);
+            printf(COLOR_RED STRERRORCMD COLOR_RESET, cmd);
             fail = 1;  
         }
     }

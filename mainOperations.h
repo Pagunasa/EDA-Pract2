@@ -13,7 +13,7 @@
 #ifndef MAINOPERATIONS_H
 #define	MAINOPERATIONS_H
 
-void writeMenu(sNode Node);
+void writeMenu(sNode Node, sHeader stateList);
 
 #endif	/* MAINOPERATIONS_H */
 

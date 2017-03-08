@@ -43,8 +43,32 @@
 #define STRMENU2_2 "Introduce movimiento: "
 #define STRERRORINPUT "Input error\n"
 #define STRTHNKS "Gracias por usar el programa\n"
+#define STRWHTSPACE ""
+#define STRJMP "\n\n"
+//Show commands
+#define STRSHOW1 "Los commandos para operar son: \n"
+#define STRCMD1 "hanoiplus"
+#define STRCMD2 " -d <numero de discos>"
+#define STRCMD3 " -f <nombre del fichero>"
+#define STRCMD4 " -o <codigo de operacion> \n\n"
+#define STRSHOW2 "Los codigos de operacion son: \n"
+#define STROPTION1 "ap -> Guardar la informacion en un fichero existente\n"
+#define STROPTION2 "w -> Crear un nuevo fichero o aplastar uno existente\n\n"
+//inputComands
+#define STRINPUTCMD "Introduce el comando: \n"
+#define STRERRORCMDDSK "Comando no valido, el numero de discos no se puede ser -d %s \n"
+#define STRERRORCMDFL "Comando no valido, no se puede llamar al fichero %s \n"
+#define STRERRORCMDOPT "Comando no valido, no se puede introducir -o %s \n"
+#define STRERRORCMD "Comando no valido, no se puede introducir %s \n"
+#define STRPASSCMD "Comando valido, introducion correcta! \n"
+//showMtr
+#define STRPROF "H %i "
+#define STREMPTY "."
+#define STRSEPA "|"
+#define STRDSK "-"
+//End of Strings
 
-//Colors
+//Colors--
 #define COLOR_RED   "\x1b[31m"
 #define COLOR_GREEN "\x1b[32m"
 #define COLOR_RESET "\x1b[0m"

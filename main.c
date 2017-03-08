@@ -96,12 +96,12 @@ int main() {
         showList(&node);
     }
 
-    writeMenu(node);
+    writeMenu(node, stateList);
 
     return (0);
 } // main
 
-void writeMenu(sNode Node) {
+void writeMenu(sNode Node, sHeader stateList) {
     char option;
     int mvm, pass;
 
@@ -123,7 +123,7 @@ void writeMenu(sNode Node) {
                             printf(COLOR_RED STRERRORINPUT COLOR_RESET);
                         }
                     } while (pass == 0 || mvm < 0 || mvm > Node.size);
-                    showMovement(Node, mvm);
+                    showMovement(Node, stateList, mvm);
                 } while (mvm != 0);
                 break;
             case NOTSEEMOVEMENT:
