@@ -52,13 +52,9 @@
 //}// hanoi
 
 int main() {
-    int debug = FALSE;
     int nd = MAXOFDISK, nt = MAXOFTOWERS;
     sHeader stateList;
-    sTowersState tower;
     int **TowerInfo = 0;
-
-    //Inicio del primer intento de recursividad
     sNode node;
     initList(&node);
 
@@ -75,19 +71,18 @@ int main() {
 
     initMatrix(&TowerInfo, stateList.diskNum, stateList.towerNum);
 
-    if (debug == TRUE) {
+    if (DEBUG == TRUE) {
         for (int i = 0; i < stateList.towerNum; i++) {
             printf("\n");
             for (int j = 0; j < stateList.diskNum; j++)
                 printf("%d \n", TowerInfo[i][j]);
         }
     }
+    
+    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &node, &TowerInfo);
+    printf(COLOR_GREEN STRPASSCORRECT COLOR_RESET);
 
-    //initTowers(&tower, &stateList);
-    hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &tower, &node, debug, &TowerInfo);
-    printf("\nMovimientos completados correctamente. \n\n");
-
-    if (debug == TRUE) {
+    if (DEBUG == TRUE) {
         for (int i = 0; i < stateList.towerNum; i++) {
             printf("\n");
             for (int j = 0; j < stateList.diskNum; j++)
@@ -97,57 +92,46 @@ int main() {
 
     freeTheMemoryMatrix(&TowerInfo, stateList.towerNum);
 
-    if (debug == TRUE) {
+    if (DEBUG == TRUE) {
         showList(&node);
     }
 
-  // writeMenu(node);
+    writeMenu(node);
 
     return (0);
 } // main
 
 void writeMenu(sNode Node) {
-    int option;
-    int mov;
-    int mvmNumber;
+    char option;
+    int mvm, pass;
 
     do {
-
-        printf("Desea visualizar un movimiento?\n");
-        printf("1-\t Elija un movimiento\n");
-        printf("2-\t Salir \n");
-        //        option = 's';
-
-        //        dump_line(stdin);
-        //fseek(stdin,0,SEEK_END);
-        scanf("%i", option);
+        printf(STRMENU1_1);
+        printf(STRMENU1_2);
+        printf(STRMENU1_3);
+        option = getc(stdin);
         dump_line(stdin);
-
         switch (option) {
-            case 1:
-                // funcion mostrar
-                printf("Total de movimentos: %i\n", Node.size);
-                printf("Introduce numero de movimiento: ");
-                // mvmNumber = 3;
-                // dump_line(stdin);
-                scanf("%i", &mvmNumber);
-                dump_line(stdin);
-
-                if (mvmNumber != 0) {
-                    showMovement(Node, mvmNumber);
-                }
-                // }else {
-                //   printf("Gracias por usar el programa\n");
-                // } 
+            case SEEMOVEMENT:
+                do {
+                    do {
+                        printf(STRMENU2_1, Node.size);
+                        printf(STRMENU2_2);
+                        pass = scanf("%i", &mvm);
+                        dump_line(stdin);
+                        if (pass == 0 || mvm < 0 || mvm > Node.size) {
+                            printf(COLOR_RED STRERRORINPUT COLOR_RESET);
+                        }
+                    } while (pass == 0 || mvm < 0 || mvm > Node.size);
+                    showMovement(Node, mvm);
+                } while (mvm != 0);
                 break;
-            case 2:
-                //salir
-                printf("Gracias por usar el programa\n");
+            case NOTSEEMOVEMENT:
+                printf(STRTHNKS);
                 break;
             default:
-                printf("La opcion introducida es incorrecta\n");
+                printf(STRERRORINPUT);
         }
-    } while (option != 2);
-
+    } while (option != NOTSEEMOVEMENT);
 }
 #endif 

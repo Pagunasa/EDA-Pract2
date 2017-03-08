@@ -28,7 +28,21 @@
 #define TOWERORIGIN 0
 #define TOWERAUXILIAR 1
 #define TOWERDESTINY 2
+#define SEEMOVEMENT 'S'
+#define NOTSEEMOVEMENT 'N'
 
+//Strings
+#define STRERRORMEMORY "SYSTEM ERROR(Not enough memory)"
+#define STRPASSCORRECT "\nMovimientos completados correctamente. \n\n"
+#define STRDBG1 "Move disc %i from %d to %d\n"
+#define STRSHWMVM "Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i \n"
+#define STRMENU1_1 "Desea visualizar un movimiento?\n"
+#define STRMENU1_2 "S - Elija un movimiento\n"
+#define STRMENU1_3 "N - Salir \n"
+#define STRMENU2_1 "Total de movimentos (0 para salir): %i\n"
+#define STRMENU2_2 "Introduce movimiento: "
+#define STRERRORINPUT "Input error\n"
+#define STRTHNKS "Gracias por usar el programa\n"
 
 //Colors
 #define COLOR_RED   "\x1b[31m"
@@ -67,7 +81,7 @@ typedef struct{
     char ouputFilename[MAXLENGTH100]; //nombre fichero
     char fileOperations[MAXLENGTH20]; //ap o wp
     sDateTime date; 
-    sMovesState moveState[MOVESMAX3]; //esto desaparecerá
+    //sMovesState moveState[MOVESMAX3]; //esto desaparecerá
 }sHeader;
 
 typedef struct{

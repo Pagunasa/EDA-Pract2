@@ -13,12 +13,11 @@
 #ifndef LISTOPERATIONS_H
 #define	LISTOPERATIONS_H
 
-int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug, int ***TowerInfo);
-int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug, int ***TowerInfo);
+#define ERRORMEMORY(condition, msg) if condition {printf msg; exit(0);}
+
+int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sNode *node, int ***TowerInfo);
+int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *node, int ***TowerInfo);
 void initMatrix(int ***TowerInfo, int columnas, int filas);
-//OUT-->
-void initTowers(sTowersState *towers, sHeader *stateList);
-//<--
 void initHeaderInfo(sHeader *stateList, int nd, int nt);
 void showMovement(sNode node,int mvmNumber);
 void initList(sNode *node);

@@ -18,7 +18,7 @@
 #include "structs.h"
 #include "listOperations.h"
 
-int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug, int ***TowerInfo) {
+int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *node, int ***TowerInfo) {
 
     int auxDisk = 0;
     int i = 0;
@@ -106,14 +106,14 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     //    current->TowerInfo[dest][destLast + 1] = 0;
 
     int mvmNumb = (*movemt) - 1; //esto no hara falta 
-    stateList->moveState[mvmNumb].depth = depth; //esto no hara falta 
-    stateList->moveState[mvmNumb].diskMoved = auxDisk; //esto no hara falta 
-    stateList->moveState[mvmNumb].towerDest = dest; //esto no hara falta 
-    stateList->moveState[mvmNumb].towerOrg = org; //esto no hara falta 
-    towers->moves = (*movemt); //esto no hara falta 
+//    stateList->moveState[mvmNumb].depth = depth; //esto no hara falta 
+//    stateList->moveState[mvmNumb].diskMoved = auxDisk; //esto no hara falta 
+//    stateList->moveState[mvmNumb].towerDest = dest; //esto no hara falta 
+//    stateList->moveState[mvmNumb].towerOrg = org; //esto no hara falta 
+// towers->moves = (*movemt); //esto no hara falta 
 
-    if (debug == TRUE) {
-        printf("Move disc %i from %d to %d\n", auxDisk, org, dest);
+    if (DEBUG == TRUE) {
+        printf(STRDBG1, auxDisk, org, dest);
     }
 
     pushList(node, depth, org, dest, auxDisk, mvmNumb, (*TowerInfo), stateList);
@@ -121,25 +121,37 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sTowersS
     return 1;
 }
 
-int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sTowersState *towers, sNode *node, int debug, int ***TowerInfo) {
+int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sNode *node, int ***TowerInfo) {
     if (nd == 1) {
         *movemt = (*movemt + 1);
-        move(org, dest, movemt, depth, stateList, towers, node, debug, TowerInfo);
+        move(org, dest, movemt, depth, stateList, node, TowerInfo);
     } else {
-        hanoi(nd - 1, org, aux, dest, movemt, depth + 1, stateList, towers, node, debug, TowerInfo);
+        hanoi(nd - 1, org, aux, dest, movemt, depth + 1, stateList, node, TowerInfo);
         *movemt = (*movemt + 1);
-        move(org, dest, movemt, depth, stateList, towers, node, debug, TowerInfo);
-        hanoi(nd - 1, aux, dest, org, movemt, depth + 1, stateList, towers, node, debug, TowerInfo);
+        move(org, dest, movemt, depth, stateList, node, TowerInfo);
+        hanoi(nd - 1, aux, dest, org, movemt, depth + 1, stateList, node, TowerInfo);
     }
     return 1;
 }// hanoi
 
 void initMatrix(int ***TowerInfo, int columnas, int filas) {
-    //    TowerInfo[MAXOFTOWERS] = (int*) malloc(3 * sizeof (int));
     *TowerInfo = malloc(filas * sizeof (int *));
 
-    for (int i = 0; i < filas; i++)
+    ERRORMEMORY((*TowerInfo == NULL), (COLOR_RED STRERRORMEMORY COLOR_RESET));
+//    if (*TowerInfo == NULL) {
+//        printf(COLOR_RED STRERRORMEMORY COLOR_RESET);
+//        exit(0);
+//    }
+
+    for (int i = 0; i < filas; i++) {
         (*TowerInfo)[i] = malloc(columnas * sizeof (int *));
+        
+        ERRORMEMORY(((*TowerInfo)[i] == NULL), (COLOR_RED STRERRORMEMORY COLOR_RESET));
+//        if ((*TowerInfo)[i] == NULL) {
+//            printf(COLOR_RED STRERRORMEMORY COLOR_RESET);
+//            exit(0);
+//        }
+    }
 
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
@@ -153,21 +165,6 @@ void initMatrix(int ***TowerInfo, int columnas, int filas) {
     }
 }
 
-void initTowers(sTowersState *towers, sHeader *stateList) { //la matriz se converiria a una dinamica!!
-    towers->moves = 0;
-    int diskValue = 0;
-    for (int k = 0; k < stateList->towerNum; k++) {
-        for (int i = 0; i < stateList->diskNum; i++) {
-            if (k == 0) {
-                diskValue++;
-                towers->TowerInfo[k][i] = diskValue;
-            } else {
-                towers->TowerInfo[k][i] = 0;
-            }
-        }
-    }
-} //esto desaparecera
-
 void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->diskNum = nd;
     strcpy(stateList->fileOperations, "ap");
@@ -175,37 +172,43 @@ void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->towerNum = nt;
 }
 
-void showMovement(sNode node, int mvmNumber) { //ya no se podra hacer asi por el dinamismo
-    //int movement = mvmNumber - 1;
+void showMovement(sNode node, int mvmNumber) {
 
     sMovesState *movementAux; //sera nuestro auxiliar
     movementAux = node.firstElement;
 
-    //printf("Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i \n", mvmNumber, stateList.moveState[movement].depth, stateList.moveState[movement].diskMoved, stateList.moveState[movement].towerOrg, stateList.moveState[movement].towerDest);
     for (int i = 0; i < node.size; i++) {
         if (mvmNumber == movementAux->mvmNumb) {
-            printf("Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i \n", mvmNumber, movementAux->depth, movementAux->diskMoved, movementAux->towerOrg, movementAux->towerDest);
-//            for (int i = 0; i < 3; i++) {
-//                printf("\n");
-//                for (int j = 0; j < 6; j++)
-//                    printf("%d \n", movementAux->towerStatus[i][j]);
-//            }
+            printf(STRSHWMVM, mvmNumber, movementAux->depth, movementAux->diskMoved, movementAux->towerOrg, movementAux->towerDest);
+            //            for (int i = 0; i < 3; i++) {
+            //                printf("\n");
+            //                for (int j = 0; j < 6; j++)
+            //                    printf("%d \n", movementAux->towerStatus[i][j]);
+            //            }
         }
         movementAux = movementAux->prev;
     }
 }
 
 void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas) {
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                (*TowerInfo)[i][j] = TowerTCpy[i][j];
-            }
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            (*TowerInfo)[i][j] = TowerTCpy[i][j];
         }
+    }
 }
 
 void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb, int **towerStatus, sHeader *stateList) {
     sMovesState *movement;
     movement = (sMovesState *) malloc(sizeof (sMovesState));
+    
+    ERRORMEMORY((movement == NULL), (COLOR_RED STRERRORMEMORY COLOR_RESET));
+//
+//    if(movement == NULL){
+//        printf(COLOR_RED STRERRORMEMORY COLOR_RESET);
+//        exit(0);
+//    }
+    
     movement->mvmNumb = mvmNumb;
     movement->depth = depth;
     movement->towerOrg = towerOrg;
@@ -213,7 +216,6 @@ void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved
     movement->diskMoved = diskMoved;
     initMatrix(&movement->towerStatus, stateList->diskNum, stateList->towerNum);
     cpyMtr(&movement->towerStatus, towerStatus, stateList->towerNum, stateList->diskNum);
-
 
     if (node->firstElement == NULL) {
         node->firstElement = movement;
@@ -230,7 +232,6 @@ void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved
 
 void initList(sNode *node) {
     node->firstElement = NULL;
-    // node->moveState = NULL;
     node->size = 0;
 }
 
@@ -239,7 +240,7 @@ void showList(sNode *node) {
     movement = node->firstElement;
 
     for (int i = 0; i < node->size; i++) {
-        printf("Move count %i, Rec Depth %i: it moves disc %i from T%i to T%i \n", movement->mvmNumb, movement->depth, movement->diskMoved, movement->towerOrg, movement->towerDest);
+        printf(STRSHWMVM, movement->mvmNumb, movement->depth, movement->diskMoved, movement->towerOrg, movement->towerDest);
         movement = movement->prev;
     }
 }
