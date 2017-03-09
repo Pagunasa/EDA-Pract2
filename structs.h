@@ -30,6 +30,8 @@
 #define TOWERDESTINY 2
 #define SEEMOVEMENT 'S'
 #define NOTSEEMOVEMENT 'N'
+#define LEFT "L"
+#define RIGTH "R"
 
 //Strings
 #define STRERRORMEMORY "SYSTEM ERROR(Not enough memory)"

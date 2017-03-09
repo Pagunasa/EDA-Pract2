@@ -180,7 +180,7 @@ void showMovement(sNode node, sHeader stateList, int mvmNumber) {
 void showMtr(int **MvmState, sHeader stateList) {
     int sizeOfString = stateList.diskNum * (stateList.towerNum * (stateList.diskNum + 1)) * 4;
     char myTxt[sizeOfString], myTxtAux[sizeOfString], myTxtAux1[sizeOfString], myTxtAux2[sizeOfString], myTxtAux3[sizeOfString];
-    int e, pos0, pos1, pos2, rep;
+    int e, pos0, pos1, pos2, rep, aux, aux2;
     strlcpy(myTxt, STRWHTSPACE, sizeof (myTxt));
     rep = stateList.diskNum - 1;
 
@@ -190,7 +190,9 @@ void showMtr(int **MvmState, sHeader stateList) {
     pos0 = 0;
     pos1 = 1;
     pos2 = 2;
-
+    aux2 = 0;
+    aux = 0;
+    
     for (int j = 0; j < stateList.diskNum; j++) {
         strlcpy(myTxtAux1, STRWHTSPACE, sizeof (myTxtAux1));
         strlcpy(myTxtAux2, STRWHTSPACE, sizeof (myTxtAux2));
@@ -208,42 +210,70 @@ void showMtr(int **MvmState, sHeader stateList) {
         //                 e++;
         //            } while (e <= rep);
         // strlcat(myTxt, STRJMP, sizeof (myTxt));
+        PRINTSTRTOSTR((MvmState[pos0][j] == 0), myTxtAux1, MvmState[pos0][j], STREMPTY, e, stateList.diskNum, aux, aux2);
+        PRINTSTRTOSTR((MvmState[pos1][j] == 0), myTxtAux2, MvmState[pos1][j], STREMPTY, e, stateList.diskNum, aux, aux2);
+        PRINTSTRTOSTR((MvmState[pos2][j] == 0), myTxtAux3, MvmState[pos2][j], STREMPTY, e, stateList.diskNum, aux, aux2);
 
-        do {
-            strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
-            e++;
-        } while (e < stateList.diskNum);
-        strlcat(myTxtAux1, STRSEPA, sizeof (myTxtAux1));
-        e = 0;
-        do {
-            strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
-            e++;
-        } while (e < stateList.diskNum);
-        e = 0;
+        //        if (MvmState[pos0][j] == 0) {
+        //            do {
+        //                strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
+        //                e++;
+        //            } while (e < stateList.diskNum);
+        //            strlcat(myTxtAux1, STRSEPA, sizeof (myTxtAux1));
+        //            e = 0;
+        //            do {
+        //                strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
+        //                e++;
+        //            } while (e < stateList.diskNum);
+        //            e = 0;
+        //        } else {
+        //            do {
+        //                strlcat(myTxtAux1, STRDSK, sizeof (myTxtAux1));
+        //                e++;
+        //            } while (e < stateList.diskNum);
+        //            strlcat(myTxtAux1, STRSEPA, sizeof (myTxtAux1));
+        //            e = 0;
+        //            do {
+        //                strlcat(myTxtAux1, STRDSK, sizeof (myTxtAux1));
+        //                e++;
+        //            } while (e < stateList.diskNum);
+        //            e = 0;
+        //        }
+        //        do {
+        //            strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
+        //            e++;
+        //        } while (e < stateList.diskNum);
+        //        strlcat(myTxtAux1, STRSEPA, sizeof (myTxtAux1));
+        //        e = 0;
+        //        do {
+        //            strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
+        //            e++;
+        //        } while (e < stateList.diskNum);
+        //        e = 0;
+        //
+        //        do {
+        //            strlcat(myTxtAux2, STREMPTY, sizeof (myTxtAux2));
+        //            e++;
+        //        } while (e < stateList.diskNum);
+        //        strlcat(myTxtAux2, STRSEPA, sizeof (myTxtAux2));
+        //        e = 0;
+        //        do {
+        //            strlcat(myTxtAux2, STREMPTY, sizeof (myTxtAux2));
+        //            e++;
+        //        } while (e < stateList.diskNum);
+        //        e = 0;
 
-        do {
-            strlcat(myTxtAux2, STREMPTY, sizeof (myTxtAux2));
-            e++;
-        } while (e < stateList.diskNum);
-        strlcat(myTxtAux2, STRSEPA, sizeof (myTxtAux2));
-        e = 0;
-        do {
-            strlcat(myTxtAux2, STREMPTY, sizeof (myTxtAux2));
-            e++;
-        } while (e < stateList.diskNum);
-        e = 0;
-
-        do {
-            strlcat(myTxtAux3, STREMPTY, sizeof (myTxtAux3));
-            e++;
-        } while (e < stateList.diskNum);
-        strlcat(myTxtAux3, STRSEPA, sizeof (myTxtAux3));
-        e = 0;
-        do {
-            strlcat(myTxtAux3, STREMPTY, sizeof (myTxtAux3));
-            e++;
-        } while (e < stateList.diskNum);
-        e = 0;
+        //        do {
+        //            strlcat(myTxtAux3, STREMPTY, sizeof (myTxtAux3));
+        //            e++;
+        //        } while (e < stateList.diskNum);
+        //        strlcat(myTxtAux3, STRSEPA, sizeof (myTxtAux3));
+        //        e = 0;
+        //        do {
+        //            strlcat(myTxtAux3, STREMPTY, sizeof (myTxtAux3));
+        //            e++;
+        //        } while (e < stateList.diskNum);
+        //        e = 0;
 
         //snprintf(myTxtAux, sizeof (myTxt), "H %i\t%i\t%i\t%i", rep, MvmState[pos0][j], MvmState[pos1][j], MvmState[pos2][j]);
         snprintf(myTxtAux, sizeof (myTxt), "H %i\t%s\t%s\t%s", rep, myTxtAux1, myTxtAux2, myTxtAux3);
