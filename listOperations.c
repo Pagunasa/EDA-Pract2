@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "structs.h"
 #include "listOperations.h"
 
@@ -52,66 +53,8 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *n
         } while (k < stateList->diskNum);
     }
 
-    //    if (towers->TowerInfo[org][i] == 0) {
-    //        do {
-    //            i++;
-    //            auxDisk = towers->TowerInfo[org][i];
-    //        } while (towers->TowerInfo[org][i] == 0);
-    //        towers->TowerInfo[org][i] = 0;
-    //    } else {
-    //        auxDisk = towers->TowerInfo[org][i];
-    //        towers->TowerInfo[org][i] = 0;
-    //    }
-    //
-    //    if (towers->TowerInfo[dest][k] == 0) {
-    //        do {
-    //            if (towers->TowerInfo[dest][k] == 0 && towers->TowerInfo[dest][k + 1] == 0) {
-    //            } else {
-    //                if (towers->TowerInfo[dest][k] == 0) {
-    //                    towers->TowerInfo[dest][k] = auxDisk;
-    //                }
-    //            }
-    //
-    //            if (k == disks && towers->TowerInfo[dest][k] == 0) {
-    //                towers->TowerInfo[dest][k] = auxDisk;
-    //            }
-    //            k++;
-    //        } while (k < stateList->diskNum - 1); //MAXOFDISK se convertiria en stateList->diskNum
-    //    } 
-
-    //else {
-    //        do {
-    //            k++;
-    //        } while (towers->TowerInfo[dest][k] != 0);
-    //        towers->TowerInfo[dest][k] = auxDisk;
-    //    }
-
-    //    sTowersState *previous = &towers[(*movemt - 1)];
-    //    sTowersState *current = &towers[(*movemt)];
-    //    
-    //    int orgLast;
-    //    int destLast;
-    //    for (int k = 0; k < MAXOFTOWERS; k++) {
-    //        for (int i = 0; i < MAXOFDISK; i++) {
-    //            current->TowerInfo[k][i] = previous->TowerInfo[k][i];
-    //            if (i == org && current->TowerInfo[k][i] != 0) {
-    //                orgLast = i;
-    //            } else if (i == dest && current->TowerInfo[k][i] != 0) {
-    //                destLast = i;
-    //            }
-    //        }
-    //    }
-    //    int temp = current->TowerInfo[org][orgLast];
-    //    current->TowerInfo[org][orgLast + 1] = 0;
-    //    current->TowerInfo[dest][destLast + 1] = 0;
-
-    int mvmNumb = (*movemt) - 1; //esto no hara falta 
-    //    stateList->moveState[mvmNumb].depth = depth; //esto no hara falta 
-    //    stateList->moveState[mvmNumb].diskMoved = auxDisk; //esto no hara falta 
-    //    stateList->moveState[mvmNumb].towerDest = dest; //esto no hara falta 
-    //    stateList->moveState[mvmNumb].towerOrg = org; //esto no hara falta 
-    // towers->moves = (*movemt); //esto no hara falta 
-
+    int mvmNumb = (*movemt) - 1; 
+    
     if (DEBUG == TRUE) {
         printf(STRDBG1, auxDisk, org, dest);
     }
@@ -162,14 +105,14 @@ void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->towerNum = nt;
 }
 
-void showMovement(sNode node, sHeader stateList, int mvmNumber) {
+void showMovement(sNode node, sHeader stateList, int mvmNumber, FILE *fp) {
     sMovesState *movementAux; //sera nuestro auxiliar
     movementAux = node.firstElement;
 
     for (int i = 0; i < node.size; i++) {
         if (mvmNumber == movementAux->mvmNumb) {
-            printf(STRSHWMVM, mvmNumber, movementAux->depth, movementAux->diskMoved, movementAux->towerOrg, movementAux->towerDest);
-            showMtr(movementAux->towerStatus, stateList);
+            fprintf(fp, STRSHWMVM, mvmNumber, movementAux->depth, movementAux->diskMoved, movementAux->towerOrg, movementAux->towerDest);
+            showMtr(movementAux->towerStatus, stateList, fp);
         }
         movementAux = movementAux->prev;
     }
@@ -177,157 +120,48 @@ void showMovement(sNode node, sHeader stateList, int mvmNumber) {
 
 //-----------------------------------------------------------------------------------//
 
-void showMtr(int **MvmState, sHeader stateList) {
+void showMtr(int **MvmState, sHeader stateList, FILE * fp) {
     int sizeOfString = stateList.diskNum * (stateList.towerNum * (stateList.diskNum + 1)) * 4;
     char myTxt[sizeOfString], myTxtAux[sizeOfString], myTxtAux1[sizeOfString], myTxtAux2[sizeOfString], myTxtAux3[sizeOfString];
-    int e, pos0, pos1, pos2, rep, aux, aux2;
+    int e, pos0, pos1, pos2, rep, aux, aux2, endLine, loopSize;
+
     strlcpy(myTxt, STRWHTSPACE, sizeof (myTxt));
     rep = stateList.diskNum - 1;
 
-    //for (int i = 0; i < stateList.towerNum; i++) {
-    //strlcpy(myTxt, STRWHTSPACE, sizeof(myTxt));
     e = 0;
     pos0 = 0;
     pos1 = 1;
     pos2 = 2;
     aux2 = 0;
     aux = 0;
+    endLine = 0;
+    strlcat(myTxt, STRJMPESP, sizeof (myTxt));
     
     for (int j = 0; j < stateList.diskNum; j++) {
         strlcpy(myTxtAux1, STRWHTSPACE, sizeof (myTxtAux1));
         strlcpy(myTxtAux2, STRWHTSPACE, sizeof (myTxtAux2));
         strlcpy(myTxtAux3, STRWHTSPACE, sizeof (myTxtAux3));
-        //            do {
-        //                //strlcat(myTxt, STRWHTSPACE, sizeof (myTxt));
-        //                //snprintf(myTxt, sizeof (myTxt), STRPROF, j);
-        //                //strlcat(myTxt, STRPROF, sizeof (myTxt));
-        //                if (e == rep / 2) {
-        //                    strlcat(myTxt, STRSEPA, sizeof (myTxt));
-        //                } else {
-        //                    strlcat(myTxt, STREMPTY, sizeof (myTxt));
-        //                }
-        //                //strlcat(myTxt, STRWHTSPACE, sizeof (myTxt));
-        //                 e++;
-        //            } while (e <= rep);
-        // strlcat(myTxt, STRJMP, sizeof (myTxt));
+        
         PRINTSTRTOSTR((MvmState[pos0][j] == 0), myTxtAux1, MvmState[pos0][j], STREMPTY, e, stateList.diskNum, aux, aux2);
         PRINTSTRTOSTR((MvmState[pos1][j] == 0), myTxtAux2, MvmState[pos1][j], STREMPTY, e, stateList.diskNum, aux, aux2);
         PRINTSTRTOSTR((MvmState[pos2][j] == 0), myTxtAux3, MvmState[pos2][j], STREMPTY, e, stateList.diskNum, aux, aux2);
-
-        //        if (MvmState[pos0][j] == 0) {
-        //            do {
-        //                strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
-        //                e++;
-        //            } while (e < stateList.diskNum);
-        //            strlcat(myTxtAux1, STRSEPA, sizeof (myTxtAux1));
-        //            e = 0;
-        //            do {
-        //                strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
-        //                e++;
-        //            } while (e < stateList.diskNum);
-        //            e = 0;
-        //        } else {
-        //            do {
-        //                strlcat(myTxtAux1, STRDSK, sizeof (myTxtAux1));
-        //                e++;
-        //            } while (e < stateList.diskNum);
-        //            strlcat(myTxtAux1, STRSEPA, sizeof (myTxtAux1));
-        //            e = 0;
-        //            do {
-        //                strlcat(myTxtAux1, STRDSK, sizeof (myTxtAux1));
-        //                e++;
-        //            } while (e < stateList.diskNum);
-        //            e = 0;
-        //        }
-        //        do {
-        //            strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
-        //            e++;
-        //        } while (e < stateList.diskNum);
-        //        strlcat(myTxtAux1, STRSEPA, sizeof (myTxtAux1));
-        //        e = 0;
-        //        do {
-        //            strlcat(myTxtAux1, STREMPTY, sizeof (myTxtAux1));
-        //            e++;
-        //        } while (e < stateList.diskNum);
-        //        e = 0;
-        //
-        //        do {
-        //            strlcat(myTxtAux2, STREMPTY, sizeof (myTxtAux2));
-        //            e++;
-        //        } while (e < stateList.diskNum);
-        //        strlcat(myTxtAux2, STRSEPA, sizeof (myTxtAux2));
-        //        e = 0;
-        //        do {
-        //            strlcat(myTxtAux2, STREMPTY, sizeof (myTxtAux2));
-        //            e++;
-        //        } while (e < stateList.diskNum);
-        //        e = 0;
-
-        //        do {
-        //            strlcat(myTxtAux3, STREMPTY, sizeof (myTxtAux3));
-        //            e++;
-        //        } while (e < stateList.diskNum);
-        //        strlcat(myTxtAux3, STRSEPA, sizeof (myTxtAux3));
-        //        e = 0;
-        //        do {
-        //            strlcat(myTxtAux3, STREMPTY, sizeof (myTxtAux3));
-        //            e++;
-        //        } while (e < stateList.diskNum);
-        //        e = 0;
-
-        //snprintf(myTxtAux, sizeof (myTxt), "H %i\t%i\t%i\t%i", rep, MvmState[pos0][j], MvmState[pos1][j], MvmState[pos2][j]);
-        snprintf(myTxtAux, sizeof (myTxt), "H %i\t%s\t%s\t%s", rep, myTxtAux1, myTxtAux2, myTxtAux3);
+       
+        snprintf(myTxtAux, sizeof (myTxt), STRPROF, rep, myTxtAux1, myTxtAux2, myTxtAux3);
         strlcat(myTxt, myTxtAux, sizeof (myTxt));
-        //printf("H %i\t%i\t%i\t%i", rep,MvmState[pos0][j], MvmState[pos1][j], MvmState[pos2][j]);
-        //printf("\n");
-        strlcat(myTxt, STRJMP, sizeof (myTxt));
+
+        strlcat(myTxt, STRJMPESP, sizeof (myTxt));
         rep--;
-
     }
-    //strlcat(myTxt, STRJMP, sizeof (myTxt));
-    //}
 
+    loopSize = (((stateList.diskNum * TWOO) + ONE) * stateList.towerNum) + FOUR;
 
-    printf("%s \n", myTxt);
+    strlcat(myTxt, TAB, sizeof (myTxt));
+    do {
+        strlcat(myTxt, ENDLINE, sizeof (myTxt));
+        endLine++;
+    } while (endLine <= loopSize);
 
-
-    //strlcat(myTxt, "\t", sizeof (myTxt));
-    //        for (int j = 0; j < stateList.diskNum; j++) {
-    //            e = 0;
-    //
-    //            do {
-    //                if (MvmState[i][j] != 0) {
-    //                    if (e < MvmState[i][j]) {
-    //                        printf(STRDSK);
-    //                    } else {
-    //                        printf(STREMPTY);
-    //                    }
-    //                } else {
-    //                    printf(STREMPTY);
-    //                }
-    //                e++;
-    //            } while (e < stateList.diskNum);
-    //            printf(STRSEPA);
-    //            e = 0;
-    //            do {
-    //                if (MvmState[i][j] != 0) {
-    //                    if (e < MvmState[i][j]) {
-    //                        printf(STRDSK);
-    //                    } else {
-    //                        printf(STREMPTY);
-    //                    }
-    //                } else {
-    //                    printf(STREMPTY);
-    //                }
-    //                e++;
-    //            } while (e < stateList.diskNum);
-    //
-    //            printf("\n");
-    //
-    //
-    //        }
-    // }
-
+    fprintf(fp, "%s \n", myTxt);
 }
 //-----------------------------------------------------------------------------------//
 
@@ -386,4 +220,17 @@ void freeTheMemoryMatrix(int ***TowerInfo, int filas) {
         free((*TowerInfo)[i]);
     free(*TowerInfo);
     *TowerInfo = 0;
+}
+
+void updateDate(sHeader *stateList){
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    stateList->date.nDay = tm.tm_wday;
+    stateList->date.day = tm.tm_mday;
+    stateList->date.hour = tm.tm_hour;
+    stateList->date.seg = tm.tm_sec;
+    stateList->date.min = tm.tm_min;
+    stateList->date.month = tm.tm_mon + ONE;
+    stateList->date.year = tm.tm_year + SHOWTHEYEAR;
 }

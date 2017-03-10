@@ -78,10 +78,12 @@ int main() {
                 printf("%d \n", TowerInfo[i][j]);
         }
     }
-    
+
     hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &node, &TowerInfo);
     printf(COLOR_GREEN STRPASSCORRECT COLOR_RESET);
-
+    updateDate(&stateList);
+    writeInFile(stateList, node);
+    
     if (DEBUG == TRUE) {
         for (int i = 0; i < stateList.towerNum; i++) {
             printf("\n");
@@ -104,7 +106,8 @@ int main() {
 void writeMenu(sNode Node, sHeader stateList) {
     char option;
     int mvm, pass;
-
+    FILE * fp;
+    fp = stdout;
     do {
         printf(STRMENU1_1);
         printf(STRMENU1_2);
@@ -123,7 +126,7 @@ void writeMenu(sNode Node, sHeader stateList) {
                             printf(COLOR_RED STRERRORINPUT COLOR_RESET);
                         }
                     } while (pass == 0 || mvm < 0 || mvm > Node.size);
-                    showMovement(Node, stateList, mvm);
+                    showMovement(Node, stateList, mvm, fp);
                 } while (mvm != 0);
                 break;
             case NOTSEEMOVEMENT:

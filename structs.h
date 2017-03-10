@@ -18,6 +18,7 @@
 #define FALSE 1
 #define DEBUG TRUE
 #define MAXLENGTH20 20
+#define MAXLENGTH24 24
 #define MAXLENGTH10 10
 #define MAXLENGTH100 100
 #define MAXLENGTH500 500
@@ -32,12 +33,14 @@
 #define NOTSEEMOVEMENT 'N'
 #define LEFT "L"
 #define RIGTH "R"
+#define SHOWTHEYEAR 1900
 
 //Strings
+#define STRNULL "NULL"
 #define STRERRORMEMORY "SYSTEM ERROR(Not enough memory)"
 #define STRPASSCORRECT "\nMovimientos completados correctamente. \n\n"
 #define STRDBG1 "Move disc %i from %d to %d\n"
-#define STRSHWMVM "Move count %i , Rec Depth %i: it moves disc %i from T%i to T%i \n"
+#define STRSHWMVM "Move count %i, Rec Depth %i: it moves disc %i from T%i to T%i \n"
 #define STRMENU1_1 "Desea visualizar un movimiento?\n"
 #define STRMENU1_2 "S - Elija un movimiento\n"
 #define STRMENU1_3 "N - Salir \n"
@@ -47,6 +50,7 @@
 #define STRTHNKS "Gracias por usar el programa\n"
 #define STRWHTSPACE ""
 #define STRJMP "\n\n"
+#define STRJMPESP "\r\n"
 //Show commands
 #define STRSHOW1 "Los commandos para operar son: \n"
 #define STRCMD1 "hanoiplus"
@@ -63,12 +67,30 @@
 #define STRERRORCMDOPT "Comando no valido, no se puede introducir -o %s \n"
 #define STRERRORCMD "Comando no valido, no se puede introducir %s \n"
 #define STRPASSCMD "Comando valido, introducion correcta! \n"
+#define STRAP "ap"
+#define STRW "w"
+#define STRBASE "hanoiplus"
+#define STRMINUSD "-d"
+#define STRMINUSF "-f"
+#define STRMINUSO "-o"
 //showMtr
-#define STRPROF "H %i "
+#define STRPROF "H %i\t %s %s %s"
 #define STREMPTY "."
 #define STRSEPA "|"
 #define STRDSK "-"
+#define ENDLINE "º"
+#define TAB "\t"
+//writeInFile
+#define STRSTDOUT "Fichero no introducido, pasando a fase interactiva\n"
+#define STRERRORFILE "Error abriendo el fichero pasando a fase interactiva\n"
+#define STRTYPEFILE ".txt"
 //End of Strings
+
+//Ints For ENDLINE
+#define ONE 1
+#define TWOO 2
+#define FOUR 4
+//End of Ints For ENDLINE
 
 //Colors--
 #define COLOR_RED   "\x1b[31m"
@@ -81,11 +103,13 @@
 //End of Colors
 
 typedef struct{
-    char day[MAXLENGTH20];
-    char month[MAXLENGTH20];
-    char nDay[MAXLENGTH20];
-    char hour[MAXLENGTH20];
-    char year[MAXLENGTH20];
+    int day;
+    int month;
+    int year;
+    int nDay;
+    int hour;
+    int min;
+    int seg;
 }sDateTime;
 
 

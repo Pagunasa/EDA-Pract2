@@ -19,7 +19,7 @@
 #include <string.h>
 #include "structs.h"
 #include "filesOperations.h"
-
+#include "listOperations.h"
 
 void showCommands() {
     printf(STRSHOW1);
@@ -50,7 +50,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
         } else {
             cmdAux[i] = '\0';
             moreCmds = 1;
-            if (strcmp(cmdAux, "hanoiplus") == 0) {
+            if (strcmp(cmdAux, STRBASE) == 0) {
                 i++;
                 j = 0;
                 memset(cmdAux, '\0', strlen(cmdAux));
@@ -62,7 +62,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                         i++;
                         a = i;
                         e = 0;
-                        if (strcmp(cmdAux, "-d") == 0) {
+                        if (strcmp(cmdAux, STRMINUSD) == 0) {
                             memset(cmdAux, '\0', strlen(cmdAux));
                             while (e < strlen(cmd)) {
                                 if (cmd[a] != '\0' && cmd[a] != ' ') {
@@ -84,7 +84,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                             i = a - 1;
                             memset(cmdAux, '\0', strlen(cmdAux));
                             j = -1;
-                        } else if (strcmp(cmdAux, "-f") == 0) {
+                        } else if (strcmp(cmdAux, STRMINUSF) == 0) {
                             memset(cmdAux, '\0', strlen(cmdAux));
                             while (e < strlen(cmd)) {
                                 if (cmd[a] != '\0' && cmd[a] != ' ') {
@@ -96,7 +96,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                                 a++;
                             }
 
-                            if (strcmp(cmdAux, "-d") == 0 || strcmp(cmdAux, "-o") == 0 || strcmp(cmdAux, "-f") == 0) {
+                            if (strcmp(cmdAux, STRMINUSD) == 0 || strcmp(cmdAux, STRMINUSO) == 0 || strcmp(cmdAux, STRMINUSF) == 0) {
                                 printf(COLOR_RED STRERRORCMDFL COLOR_RESET, cmdAux);
                                 fail = 1;
                             } else {
@@ -105,7 +105,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                             i = a - 1;
                             memset(cmdAux, '\0', strlen(cmdAux));
                             j = -1;
-                        } else if (strcmp(cmdAux, "-o") == 0) {
+                        } else if (strcmp(cmdAux, STRMINUSO) == 0) {
                             memset(cmdAux, '\0', strlen(cmdAux));
                             while (e < strlen(cmd)) {
                                 if (cmd[a] != '\0' && cmd[a] != ' ') {
@@ -118,10 +118,10 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                             }
 
                             intAux = 0;
-                            if (strcmp(cmdAux, "ap") != 0) {
+                            if (strcmp(cmdAux, STRAP) != 0) {
                                 intAux++;
                             }
-                            if (strcmp(cmdAux, "w") != 0){
+                            if (strcmp(cmdAux, STRW) != 0){
                                 intAux++;
                             }
                             if(intAux == 2){
@@ -155,7 +155,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
     }
 
     if (moreCmds == 0) {
-        if (strcmp(cmd, "hanoiplus") == 0) {
+        if (strcmp(cmd, STRBASE) == 0) {
             printf(COLOR_GREEN STRPASSCMD COLOR_RESET);      
         } else {
             printf(COLOR_RED STRERRORCMD COLOR_RESET, cmd);
@@ -168,6 +168,35 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
     }
 
     return fail;
+}
+
+void writeInFile(sHeader stateList, sNode node){
+    if(strcmp(stateList.ouputFilename, STRNULL)){
+        char fileNameTxt[MAXLENGTH24];
+        int timeToWrite;
+        FILE * fp;
+        strlcat(fileNameTxt, stateList.ouputFilename, sizeof(fileNameTxt));
+        strlcat(fileNameTxt, STRTYPEFILE, sizeof(fileNameTxt));
+        if(strcmp(stateList.fileOperations, STRAP) == 0){
+            fp = fopen(fileNameTxt, "a");
+        }else{
+            fp = fopen(fileNameTxt, "w");
+        }
+        if(fp == NULL){
+            printf(COLOR_RED STRERRORFILE COLOR_RESET);
+        }else{
+            timeToWrite = 0;
+            do{
+                showMovement(node, stateList, timeToWrite, fp);
+                fprintf(fp, STRJMPESP);
+                fprintf(fp, STRJMPESP);
+                timeToWrite++;
+            }while(timeToWrite <= node.size);
+        }
+        fclose(fp);
+    }else{
+        printf(COLOR_GREEN STRSTDOUT COLOR_RESET);
+    }
 }
 
 void dump_line(FILE * fp){
