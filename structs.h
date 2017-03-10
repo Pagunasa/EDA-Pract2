@@ -22,6 +22,7 @@
 #define MAXLENGTH10 10
 #define MAXLENGTH100 100
 #define MAXLENGTH500 500
+#define MAXLENGTH1500 1500
 #define MAXOFDISK 3
 #define MAXOFTOWERS 3
 #define MOVESMAX3 7 //esto desaparecerá

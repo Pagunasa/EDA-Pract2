@@ -171,6 +171,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
 }
 
 void writeInFileHeader(sHeader stateList,  FILE * fp){
+    char myTxt[MAXLENGTH1500];
     
 }
 
