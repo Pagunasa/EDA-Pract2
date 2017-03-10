@@ -170,6 +170,10 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
     return fail;
 }
 
+void writeInFileHeader(sHeader stateList,  FILE * fp){
+    
+}
+
 void writeInFile(sHeader stateList, sNode node){
     if(strcmp(stateList.ouputFilename, STRNULL)){
         char fileNameTxt[MAXLENGTH24];

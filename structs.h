@@ -84,6 +84,10 @@
 #define STRSTDOUT "Fichero no introducido, pasando a fase interactiva\n"
 #define STRERRORFILE "Error abriendo el fichero pasando a fase interactiva\n"
 #define STRTYPEFILE ".txt"
+//writeInFileHeader
+#define STRCMDLN "Command Line Entered: %s"
+#define STRTWR "Command Line Entered: %s"
+
 //End of Strings
 
 //Ints For ENDLINE
