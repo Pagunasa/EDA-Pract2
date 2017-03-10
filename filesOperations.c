@@ -121,13 +121,13 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
                             if (strcmp(cmdAux, STRAP) != 0) {
                                 intAux++;
                             }
-                            if (strcmp(cmdAux, STRW) != 0){
+                            if (strcmp(cmdAux, STRW) != 0) {
                                 intAux++;
                             }
-                            if(intAux == 2){
+                            if (intAux == 2) {
                                 printf(COLOR_RED STRERRORCMDOPT COLOR_RESET, cmdAux);
                                 fail = 1;
-                            }else{
+                            } else {
                                 strcpy(stateList->fileOperations, cmdAux);
                             }
 
@@ -156,57 +156,89 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
 
     if (moreCmds == 0) {
         if (strcmp(cmd, STRBASE) == 0) {
-            printf(COLOR_GREEN STRPASSCMD COLOR_RESET);      
+            printf(COLOR_GREEN STRPASSCMD COLOR_RESET);
         } else {
             printf(COLOR_RED STRERRORCMD COLOR_RESET, cmd);
-            fail = 1;  
+            fail = 1;
         }
     }
-    
-    if(fail == 0){
-         strcpy(stateList->cmdLine, cmd);
+
+    if (fail == 0) {
+        strcpy(stateList->cmdLine, cmd);
     }
 
     return fail;
 }
 
-void writeInFileHeader(sHeader stateList,  FILE * fp){
-    char myTxt[MAXLENGTH1500];
-    
+void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves) {
+    int loop = 0;
+
+    do {
+        fprintf(fp, STRSEPHEADER);
+        loop++;
+    } while (loop < NUMOFHEADSEP);
+    loop = 0;
+
+    if (FirstOSec == FIRST) {
+        fprintf(fp, STRJMPESP);
+        fprintf(fp, STRCMDLN, stateList.cmdLine);
+        fprintf(fp, STRTWRNUM, stateList.towerNum);
+        fprintf(fp, STRDSKNUM, stateList.diskNum);
+        fprintf(fp, STROUTPUTFN, stateList.ouputFilename);
+        fprintf(fp, STRFILEOP, stateList.fileOperations);
+        fprintf(fp, STRJMPESP);
+        fprintf(fp, STRINITTIME, stateList.initDate);
+    } else {
+        fprintf(fp, STRJMPESP);
+        fprintf(fp, STRTWRNUM, stateList.towerNum);
+        fprintf(fp, STRDSKNUM, stateList.diskNum);
+        fprintf(fp, STROUTPUTFN, stateList.ouputFilename);
+        fprintf(fp, STRFILEOP, stateList.fileOperations);
+        fprintf(fp, STRJMPESP);
+        fprintf(fp, STRTOTALNUM, moves);
+        fprintf(fp, STRENDTIME, stateList.endDate);
+    }
+
+    do {
+        fprintf(fp, STRSEPHEADER);
+        loop++;
+    } while (loop < NUMOFHEADSEP);
 }
 
-void writeInFile(sHeader stateList, sNode node){
-    if(strcmp(stateList.ouputFilename, STRNULL)){
+void writeInFile(sHeader stateList, sNode node) {
+    if (strcmp(stateList.ouputFilename, STRNULL)) {
         char fileNameTxt[MAXLENGTH24];
         int timeToWrite;
         FILE * fp;
-        strlcat(fileNameTxt, stateList.ouputFilename, sizeof(fileNameTxt));
-        strlcat(fileNameTxt, STRTYPEFILE, sizeof(fileNameTxt));
-        if(strcmp(stateList.fileOperations, STRAP) == 0){
+        strlcpy(fileNameTxt, stateList.ouputFilename, sizeof (fileNameTxt));
+        strlcat(fileNameTxt, STRTYPEFILE, sizeof (fileNameTxt));
+        if (strcmp(stateList.fileOperations, STRAP) == 0) {
             fp = fopen(fileNameTxt, "a");
-        }else{
+        } else {
             fp = fopen(fileNameTxt, "w");
         }
-        if(fp == NULL){
+        writeInFileHeader(stateList, fp, FIRST, node.size);
+        if (fp == NULL) {
             printf(COLOR_RED STRERRORFILE COLOR_RESET);
-        }else{
+        } else {
             timeToWrite = 0;
-            do{
+            do {
                 showMovement(node, stateList, timeToWrite, fp);
                 fprintf(fp, STRJMPESP);
                 fprintf(fp, STRJMPESP);
                 timeToWrite++;
-            }while(timeToWrite <= node.size);
+            } while (timeToWrite <= node.size);
         }
+        writeInFileHeader(stateList, fp, SECOND, node.size);
         fclose(fp);
-    }else{
+    } else {
         printf(COLOR_GREEN STRSTDOUT COLOR_RESET);
     }
 }
 
-void dump_line(FILE * fp){
-  int ch;
+void dump_line(FILE * fp) {
+    int ch;
 
-  while( (ch = fgetc(fp)) != EOF && ch != '\n' )
-    /* null body */;
+    while ((ch = fgetc(fp)) != EOF && ch != '\n')
+        /* null body */;
 }

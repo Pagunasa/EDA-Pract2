@@ -20,7 +20,7 @@ int inputComands(sHeader *stateList);
 void makeTxt(sMovesState stateList, sTowersState towers, sHeader header, char fileName);
 void dump_line( FILE * fp );
 void writeInFile(sHeader stateList, sNode node);
-void writeInFileHeader(sHeader stateList, FILE * fp);
+void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves);
 
 #endif	/* FILESOPERATIONS_H */
 

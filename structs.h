@@ -19,6 +19,7 @@
 #define DEBUG TRUE
 #define MAXLENGTH20 20
 #define MAXLENGTH24 24
+#define MAXLENGTH30 30
 #define MAXLENGTH10 10
 #define MAXLENGTH100 100
 #define MAXLENGTH500 500
@@ -35,6 +36,9 @@
 #define LEFT "L"
 #define RIGTH "R"
 #define SHOWTHEYEAR 1900
+#define NUMOFHEADSEP 30
+#define FIRST 1
+#define SECOND 2
 
 //Strings
 #define STRNULL "NULL"
@@ -52,6 +56,7 @@
 #define STRWHTSPACE ""
 #define STRJMP "\n\n"
 #define STRJMPESP "\r\n"
+#define STRJMPESPDOUBLE "\r\n\r\n"
 //Show commands
 #define STRSHOW1 "Los commandos para operar son: \n"
 #define STRCMD1 "hanoiplus"
@@ -79,16 +84,23 @@
 #define STREMPTY "."
 #define STRSEPA "|"
 #define STRDSK "-"
-#define ENDLINE "º"
+#define ENDLINE "/"
 #define TAB "\t"
 //writeInFile
 #define STRSTDOUT "Fichero no introducido, pasando a fase interactiva\n"
 #define STRERRORFILE "Error abriendo el fichero pasando a fase interactiva\n"
 #define STRTYPEFILE ".txt"
 //writeInFileHeader
-#define STRCMDLN "Command Line Entered: %s"
-#define STRTWR "Command Line Entered: %s"
-
+#define STRCMDLN "Command Line Entered: %s\r\n"
+#define STRTWRNUM "Number of Towers: %i\r\n"
+#define STRDSKNUM "Number of disk: %i\r\n"
+#define STROUTPUTFN "Ouput Filename: %s\r\n"
+#define STRFILEOP "File Operation: %s\r\n"
+#define STRFILEOP "File Operation: %s\r\n"
+#define STRTOTALNUM "Total Number Moves: %i\r\n"
+#define STRENDTIME "END Time: %s\r\n"
+#define STRINITTIME "INIT Time: %s\r\n"
+#define STRSEPHEADER "="
 //End of Strings
 
 //Ints For ENDLINE
@@ -109,9 +121,9 @@
 
 typedef struct{
     int day;
-    int month;
+    char month[MAXLENGTH20];
     int year;
-    int nDay;
+    char nDay[MAXLENGTH20];
     int hour;
     int min;
     int seg;
@@ -135,6 +147,8 @@ typedef struct{
     int diskNum;
     char ouputFilename[MAXLENGTH100]; //nombre fichero
     char fileOperations[MAXLENGTH20]; //ap o wp
+    char initDate[MAXLENGTH30];
+    char endDate[MAXLENGTH30];
     sDateTime date; 
     //sMovesState moveState[MOVESMAX3]; //esto desaparecerá
 }sHeader;

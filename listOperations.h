@@ -66,7 +66,7 @@ void showList(sNode *node);
 void freeTheMemoryMatrix(int ***TowerInfo, int filas);
 void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas);
 void showMtr(int **MvmState, sHeader stateList, FILE * fp);
-void updateDate(sHeader *stateList);
+void updateDate(sHeader *stateList, int FirstOSec);
 
 #endif /* LISTOPERATIONS_H */
 

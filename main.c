@@ -57,13 +57,15 @@ int main() {
     int **TowerInfo = 0;
     sNode node;
     initList(&node);
-
+    char auxDate[MAXLENGTH30];
+    
     int movemnt = 1;
     int depth = 0;
     int pass;
 
     showCommands();
     initHeaderInfo(&stateList, nd, nt);
+    updateDate(&stateList, FIRST);
 
     do {
         pass = inputComands(&stateList);
@@ -81,7 +83,7 @@ int main() {
 
     hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &node, &TowerInfo);
     printf(COLOR_GREEN STRPASSCORRECT COLOR_RESET);
-    updateDate(&stateList);
+    updateDate(&stateList, SECOND);
     writeInFile(stateList, node);
     
     if (DEBUG == TRUE) {

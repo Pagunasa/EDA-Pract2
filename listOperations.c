@@ -222,15 +222,13 @@ void freeTheMemoryMatrix(int ***TowerInfo, int filas) {
     *TowerInfo = 0;
 }
 
-void updateDate(sHeader *stateList){
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-
-    stateList->date.nDay = tm.tm_wday;
-    stateList->date.day = tm.tm_mday;
-    stateList->date.hour = tm.tm_hour;
-    stateList->date.seg = tm.tm_sec;
-    stateList->date.min = tm.tm_min;
-    stateList->date.month = tm.tm_mon + ONE;
-    stateList->date.year = tm.tm_year + SHOWTHEYEAR;
+void updateDate(sHeader *stateList, int FirstOSec){
+    time_t result = time(NULL);
+    if(FirstOSec == FIRST){
+        if(result != -1)
+           strlcpy(stateList->initDate, asctime(gmtime(&result)), sizeof(stateList->initDate));  
+    }else{
+        if(result != -1)
+           strlcpy(stateList->endDate, asctime(gmtime(&result)), sizeof(stateList->endDate));  
+    }
 }
