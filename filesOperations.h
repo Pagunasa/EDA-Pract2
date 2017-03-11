@@ -10,6 +10,8 @@
  * Modified: February 2017
  */
 
+#include "structs.h"
+#include <stdio.h>
 
 #ifndef FILESOPERATIONS_H
 #define	FILESOPERATIONS_H

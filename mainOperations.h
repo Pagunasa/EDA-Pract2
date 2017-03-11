@@ -9,6 +9,7 @@
  * Prepared by: 
  * Modified: February 2017
  */
+#include "structs.h"
 
 #ifndef MAINOPERATIONS_H
 #define	MAINOPERATIONS_H

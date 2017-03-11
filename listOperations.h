@@ -10,6 +10,9 @@
  * Modified: February 2017
  */
 
+#include "structs.h"
+#include <stdio.h>
+
 #ifndef LISTOPERATIONS_H
 #define LISTOPERATIONS_H
 
