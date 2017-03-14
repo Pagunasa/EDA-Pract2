@@ -16,6 +16,7 @@
 #if 1
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "structs.h"
 #include "listOperations.h"
@@ -52,24 +53,55 @@
 //}// hanoi
 
 int main(int argc, char *argv[]) {
+
+    char cmd[MAXLENGTH500];
+    int cmdCounter = 1;
+    strlcpy(cmd, STRWHTSPACE, sizeof (cmd));
+
+    char path[MAXLENGTH1500];
+    strlcpy(path, argv[0], sizeof (path));
+
+    if (argc > 1 && argc < 9) {
+        do {
+            strlcat(cmd, argv[cmdCounter], sizeof (cmd));
+            strlcat(cmd, STRSPACE, sizeof (cmd));
+            cmdCounter++;
+        } while (cmdCounter < argc);
+    } else if (argc > 8) {
+        printf(COLOR_RED "Too many arguments supplied.\n" COLOR_RESET);
+        exit(0);
+    } else {
+        printf(COLOR_RED "Argument expected.\n" COLOR_RESET);
+        exit(0);
+    }
+
+//    printf("The argument supplied is %s\n", cmd);
+
     int nd = MAXOFDISK, nt = MAXOFTOWERS;
     sHeader stateList;
     int **TowerInfo = 0;
     sNode node;
     initList(&node);
-    
+
     int movemnt = 1;
     int depth = 0;
     int pass;
 
-    showCommands();
+    //showCommands();
     initHeaderInfo(&stateList, nd, nt);
     updateDate(&stateList, FIRST);
 
-    do {
-        pass = inputComands(&stateList);
-    } while (pass != 0);
+    // do {
+    pass = inputComands(&stateList, cmd);
+    //} while (pass != 0);
+    if (pass == 1) {
+        exit(0);
+    }
 
+    if(DEBUG == TRUE){
+        printf("%s", stateList.cmdLine);
+    }
+    
     initMatrix(&TowerInfo, stateList.diskNum, stateList.towerNum);
 
     if (DEBUG == TRUE) {
@@ -83,8 +115,8 @@ int main(int argc, char *argv[]) {
     hanoi(stateList.diskNum, TOWERORIGIN, TOWERAUXILIAR, TOWERDESTINY, &movemnt, depth, &stateList, &node, &TowerInfo);
     printf(COLOR_GREEN STRPASSCORRECT COLOR_RESET);
     updateDate(&stateList, SECOND);
-    writeInFile(stateList, node);
-    
+    writeInFile(stateList, node, path);
+
     if (DEBUG == TRUE) {
         for (int i = 0; i < stateList.towerNum; i++) {
             printf("\n");

@@ -18,11 +18,11 @@
 
 //void paintMoves(sMovesState stateList, int move);
 void showCommands();
-int inputComands(sHeader *stateList);
+int inputComands(sHeader *stateList, char cmd[MAXLENGTH500]);
 //void makeTxt(sMovesState stateList, sTowersState towers, sHeader header, char fileName);
 void dump_line( FILE * fp );
-void writeInFile(sHeader stateList, sNode node);
-void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves);
+void writeInFile(sHeader stateList, sNode node, char path[MAXLENGTH1500]);
+void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves, char path[MAXLENGTH1500]);
 
 #endif	/* FILESOPERATIONS_H */
 

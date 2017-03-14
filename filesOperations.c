@@ -33,13 +33,13 @@ void showCommands() {
     printf(STROPTION2 COLOR_RESET);
 }
 
-int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si esta mal el comando
-    char cmd[MAXLENGTH100];
+int inputComands(sHeader *stateList, char cmd[MAXLENGTH500]) { //Devuelve un 0 si esta bien y un 1 si esta mal el comando
+//    char cmd[MAXLENGTH100];
     char cmdAux[MAXLENGTH100];
-
-    printf(STRINPUTCMD);
-    scanf("%[^\n]", cmd);
-    dump_line(stdin);
+//
+//    printf(STRINPUTCMD);
+//    scanf("%[^\n]", cmd);
+//    dump_line(stdin);
 
     int i = 0, j = 0, e = 0, a = 0, intAux, fail = 0;
     int moreCmds = 0;
@@ -170,7 +170,7 @@ int inputComands(sHeader *stateList) { //Devuelve un 0 si esta bien y un 1 si es
     return fail;
 }
 
-void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves) {
+void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves, char path[MAXLENGTH1500]) {
     int loop = 0;
 
     do {
@@ -181,7 +181,7 @@ void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves) {
 
     if (FirstOSec == FIRST) {
         fprintf(fp, STRJMPESP);
-        fprintf(fp, STRCMDLN, stateList.cmdLine);
+        fprintf(fp, STRCMDLN, path, stateList.cmdLine);
         fprintf(fp, STRTWRNUM, stateList.towerNum);
         fprintf(fp, STRDSKNUM, stateList.diskNum);
         fprintf(fp, STROUTPUTFN, stateList.ouputFilename);
@@ -205,7 +205,7 @@ void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves) {
     } while (loop < NUMOFHEADSEP);
 }
 
-void writeInFile(sHeader stateList, sNode node) {
+void writeInFile(sHeader stateList, sNode node, char path[MAXLENGTH1500]) {
     if (strcmp(stateList.ouputFilename, STRNULL)) {
         char fileNameTxt[MAXLENGTH24];
         int timeToWrite;
@@ -217,7 +217,7 @@ void writeInFile(sHeader stateList, sNode node) {
         } else {
             fp = fopen(fileNameTxt, "w");
         }
-        writeInFileHeader(stateList, fp, FIRST, node.size);
+        writeInFileHeader(stateList, fp, FIRST, node.size, path);
         if (fp == NULL) {
             printf(COLOR_RED STRERRORFILE COLOR_RESET);
         } else {
@@ -229,7 +229,7 @@ void writeInFile(sHeader stateList, sNode node) {
                 timeToWrite++;
             } while (timeToWrite <= node.size);
         }
-        writeInFileHeader(stateList, fp, SECOND, node.size);
+        writeInFileHeader(stateList, fp, SECOND, node.size, path);
         fclose(fp);
     } else {
         printf(COLOR_GREEN STRSTDOUT COLOR_RESET);

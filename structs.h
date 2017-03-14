@@ -26,8 +26,8 @@
 #define MAXLENGTH1500 1500
 #define MAXOFDISK 3
 #define MAXOFTOWERS 3
-#define MOVESMAX3 7 //esto desaparecerá
-#define MOVESMAX4 15 //esto desaparecerá
+//#define MOVESMAX3 7 //esto desaparecerá
+//#define MOVESMAX4 15 //esto desaparecerá
 #define TOWERORIGIN 0
 #define TOWERAUXILIAR 1
 #define TOWERDESTINY 2
@@ -54,6 +54,7 @@
 #define STRERRORINPUT "Input error\n"
 #define STRTHNKS "Gracias por usar el programa\n"
 #define STRWHTSPACE ""
+#define STRSPACE " "
 #define STRJMP "\n\n"
 #define STRJMPESP "\r\n"
 #define STRJMPESPDOUBLE "\r\n\r\n"
@@ -91,7 +92,7 @@
 #define STRERRORFILE "Error abriendo el fichero pasando a fase interactiva\n"
 #define STRTYPEFILE ".txt"
 //writeInFileHeader
-#define STRCMDLN "Command Line Entered: %s\r\n"
+#define STRCMDLN "Command Line Entered: %s %s\r\n"
 #define STRTWRNUM "Number of Towers: %i\r\n"
 #define STRDSKNUM "Number of disk: %i\r\n"
 #define STROUTPUTFN "Ouput Filename: %s\r\n"
