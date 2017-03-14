@@ -26,6 +26,14 @@
 #include "structs.h"
 #include "listOperations.h"
 
+/*This function have 7 parameters and his function is move one disk from the 
+ * origin tower (org) to the destiny tower (dest), and another parameters are 
+ * the depth for add to the sMoveState struct, we also pass stateList pointer 
+ * for get the number of disk and movement pointer for getting the movement 
+ * number, the sNode pointer is for get the first movement and add to the list 
+ * one more, and, for finish we pass the pointer os the array of the disks for
+ * update his status.  
+ */
 int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *node, int ***TowerInfo) {
 
     int auxDisk = 0;
@@ -71,6 +79,11 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *n
     return 1;
 }
 
+/*This is a recursive function who is finality is to move a disk from the origin
+ * to the destiny using the auxiliar, it calls himself unless the nd is equals to
+ * 1 in this case the recursion ends and move the disk, then return and move 
+ * another time  and for finish the hanoi function recall himself.
+ */
 int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *stateList, sNode *node, int ***TowerInfo) {
     if (nd == 1) {
         *movemt = (*movemt + 1);
@@ -82,8 +95,13 @@ int hanoi(int nd, int org, int dest, int aux, int *movemt, int depth, sHeader *s
         hanoi(nd - 1, aux, dest, org, movemt, depth + 1, stateList, node, TowerInfo);
     }
     return 1;
-}// hanoi
+}
 
+/*This function gets three parameters, the pointer os the matrix, the number of
+ * collumns and of rows, the objective of this function is to reserve space in 
+ * memory for the matrix and inicialize the first row with the number of the 
+ * disk and the others with 0. 
+ */
 void initMatrix(int ***TowerInfo, int columnas, int filas) {
     *TowerInfo = malloc(filas * sizeof (int *));
     ERRORMEMORY((*TowerInfo == NULL), (COLOR_RED STRERRORMEMORY COLOR_RESET));
@@ -105,6 +123,10 @@ void initMatrix(int ***TowerInfo, int columnas, int filas) {
     }
 }
 
+/*This function have three parameters, a pointer of sHeader for update the header
+ * and the number of towers and disks, this function is for inicialize te header
+ * with a default values before it was update with the user command.
+ */
 void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->diskNum = nd;
     strcpy(stateList->fileOperations, "ap");
@@ -112,6 +134,10 @@ void initHeaderInfo(sHeader *stateList, int nd, int nt) {
     stateList->towerNum = nt;
 }
 
+/*This function have four parameters, the sNode for get the first movement, the 
+ * stateList for pass it to showMtr, the movement number for compare with the 
+ * number of every SmoveState and the file for print in that.
+ */
 void showMovement(sNode node, sHeader stateList, int mvmNumber, FILE *fp) {
     sMovesState *movementAux; //sera nuestro auxiliar
     movementAux = node.firstElement;
@@ -127,6 +153,10 @@ void showMovement(sNode node, sHeader stateList, int mvmNumber, FILE *fp) {
 
 //-----------------------------------------------------------------------------------//
 
+/*This function gets a matrix of ints, the sHeader struct and a file, is 
+ * objective is to show the matrix who is introduced, and we need the sHeader 
+ * because in this struct we save the number of towers and disks.
+ */
 void showMtr(int **MvmState, sHeader stateList, FILE * fp) {
     int sizeOfString = stateList.diskNum * (stateList.towerNum * (stateList.diskNum + 1)) * 4;
     char myTxt[sizeOfString], myTxtAux[sizeOfString], myTxtAux1[sizeOfString], myTxtAux2[sizeOfString], myTxtAux3[sizeOfString];
@@ -172,6 +202,9 @@ void showMtr(int **MvmState, sHeader stateList, FILE * fp) {
 }
 //-----------------------------------------------------------------------------------//
 
+/*This function gets the origin matix, the destiny matrix, the numbers of rows 
+ * and of the columns,the objective is to copy in the destiny the origin.
+ */
 void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas) {
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
@@ -180,6 +213,10 @@ void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas) {
     }
 }
 
+/*This function get eigth parameters, all of the parameters is for update the 
+ * information of the movements, and we also pass the SHeader because we need
+ * for call tje init and copy Matrix.
+ */
 void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb, int **towerStatus, sHeader *stateList) {
     sMovesState *movement;
     movement = (sMovesState *) malloc(sizeof (sMovesState));
@@ -207,11 +244,18 @@ void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved
     node->size++;
 }
 
+/*This function only have one parameter who is a pointer of sNode who update the
+ * list with a default values for no have any problem when we want to add a new
+ * movement to the list.
+ */
 void initList(sNode *node) {
     node->firstElement = NULL;
     node->size = 0;
 }
 
+/*This fucntion gets a pointer of sNode and his objective is show only the basic
+ * information of the movements, is a debug fucntion.
+ */
 void showList(sNode *node) {
     sMovesState *movement;
     movement = node->firstElement;
@@ -222,6 +266,9 @@ void showList(sNode *node) {
     }
 }
 
+/*This function get the pointer of the matrix and  the numner of rows, and his 
+ * objective is free the memory wo was reserved to the matrix.
+ */
 void freeTheMemoryMatrix(int ***TowerInfo, int filas) {
     for (int i = 0; i < filas; i++)
         free((*TowerInfo)[i]);
@@ -229,6 +276,10 @@ void freeTheMemoryMatrix(int ***TowerInfo, int filas) {
     *TowerInfo = 0;
 }
 
+/*This function get a pòinter od sHeader who we want to save the date and a int
+ * for loock if it was the init of the end date, id the number is equals to one
+ * is the initDate else is the endDate.
+ */
 void updateDate(sHeader *stateList, int FirstOSec){
     time_t result = time(NULL);
     if(FirstOSec == FIRST){
