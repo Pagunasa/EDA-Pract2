@@ -4,9 +4,16 @@
  * File: listOperations.c
  * 
  * This file contains the initalation and the logic of hanoi game. 
- * It only have four functions for moving the disks and the hanoi function
- * who works recursively and calls move for resolve the game, and we have 
- * initTowers and initHeaderInfo who set a default values for the structs
+ * It only have twelve functions for moving the disks and the hanoi function
+ * who works recursively and calls move for resolve the game, we have 
+ * initMatrix who inicialize the dinamic matrix, initHeaderInfo who set a default 
+ * values for the struct SHeader, showMovement who shows a movement, initList 
+ * who inicialize the dinamic list, pushList who add one movement to the list,
+ * showList who show all the basic information of all of the movements, 
+ * freeTheMemoryMatrix who free the memory reserved for the dinamic matrix, 
+ * cpyMtr who copy the matrix after one momvement to the struct of his associate
+ * movement, showMtr who show the drawing of the hanoi towers and his disks and 
+ * the updateDate who update the date for showing it in the header.
  * 
  * Prepared by: 
  * Modified: February 2017

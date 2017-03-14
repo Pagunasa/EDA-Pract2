@@ -16,8 +16,16 @@
 #ifndef LISTOPERATIONS_H
 #define LISTOPERATIONS_H
 
+/*This Macro is used for check if the program have more 
+ * memory and if it was not true this will show that was a error
+ * and then finish the execution.
+ */
 #define ERRORMEMORY(condition, msg) if condition {printf msg; exit(0);}
 
+/*The macros of PRINTSTRTOSTR and LOOPPRINT is used for print the
+ * picture of the state of the hanoi movement in the file o in the
+ * console
+ */
 #define LOOPPRINT(string, stringTPrint, size, LoR, e, disk, aux, aux2) \
 aux = size;\
 do{\

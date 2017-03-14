@@ -26,8 +26,6 @@
 #define MAXLENGTH1500 1500
 #define MAXOFDISK 3
 #define MAXOFTOWERS 3
-//#define MOVESMAX3 7 //esto desaparecerá
-//#define MOVESMAX4 15 //esto desaparecerá
 #define TOWERORIGIN 0
 #define TOWERAUXILIAR 1
 #define TOWERDESTINY 2
@@ -35,7 +33,6 @@
 #define NOTSEEMOVEMENT 'N'
 #define LEFT "L"
 #define RIGTH "R"
-#define SHOWTHEYEAR 1900
 #define NUMOFHEADSEP 30
 #define FIRST 1
 #define SECOND 2
@@ -120,17 +117,14 @@
 #define COLOR_CYAN    "\x1b[36m"
 //End of Colors
 
-//typedef struct{
-//    int day;
-//    char month[MAXLENGTH20];
-//    int year;
-//    char nDay[MAXLENGTH20];
-//    int hour;
-//    int min;
-//    int seg;
-//}sDateTime;
-
-
+/*This struct have all the information about the status of all 
+ * of the movements, save the movement number (mvmNumb), the depth
+ * of the recursitivy call, the origin and destiny towers, the disk
+ * who was moved, a array about the state of the view and twoo 
+ * pointers who point to the next and prev movements, in this
+ * program we use prev and next on the contrary who was explained
+ * in class because it was more easy for understand for us. 
+ */
 typedef struct movement{
     int mvmNumb;
     int depth;
@@ -142,6 +136,11 @@ typedef struct movement{
     struct movement *next;
 }sMovesState;
 
+/*This struct have all the information about the header who we have
+ * tho show in the file when the user puts -f filename in the command
+ * we also save the tower num, the disk num, the name of the ouput 
+ * file and the init and end Date. 
+ */
 typedef struct{
     char cmdLine[MAXLENGTH500];
     int towerNum;
@@ -150,22 +149,15 @@ typedef struct{
     char fileOperations[MAXLENGTH20]; //ap o wp
     char initDate[MAXLENGTH30];
     char endDate[MAXLENGTH30];
-   // sDateTime date; 
-    //sMovesState moveState[MOVESMAX3]; //esto desaparecerá
 }sHeader;
 
+/*This struct save the adress of the first movement and the size
+ * of the list who is the same of the total movement number.
+ */
 typedef struct{
-   // sMovesState *moveState;
     sMovesState *firstElement;
     int size;
 }sNode;
-
-//typedef struct{
-//    int moves;
-//    int TowerInfo[MAXOFTOWERS][MAXOFDISK];//esto desaparecera
-//}sTowersState; //seguramente desaparecera
-
-
 
 #endif	/* STRUCTS_H */
 

@@ -5,11 +5,14 @@
  * 
  * This file contains the operations who is refereds whit the work with the 
  * files, inputs, ouputs and the function who cleans the stdin. 
- * It only have three functions for showing who you have tho write the command , 
- * the inputComands who is needed for segure that the input was correct and the 
- * dump_line function who we use for cleaning the stdin.
+ * It only have five functions for showing who you have tho write the command , 
+ * the inputComands who is needed for segure that the input was correct, the 
+ * dump_line function who we use for cleaning the stdin and twoo more for print
+ * the information in the file who the user put in the command, one of them only
+ * print the headers (writeInFileHeader) and the other all the body of the 
+ * file (writeInFile). 
  * 
- * Prepared by: 
+ * Prepared by:
  * Modified: February 2017
  */
 
@@ -21,6 +24,9 @@
 #include "filesOperations.h"
 #include "listOperations.h"
 
+/*This function haven't any parameter and only show all the information of the
+ * commands and who it is structure
+ */
 void showCommands() {
     printf(STRSHOW1);
     printf(COLOR_MAGENTA STRCMD1 COLOR_RESET);
@@ -33,12 +39,16 @@ void showCommands() {
     printf(STROPTION2 COLOR_RESET);
 }
 
-int inputComands(sHeader *stateList, char cmd[MAXLENGTH500]) { //Devuelve un 0 si esta bien y un 1 si esta mal el comando
+/*This function have the satetList for save the command and the command who 
+ * the user input, the fucntion returns 0 if the command is correct and 1
+ * if the user input a error in the command.
+ */
+int inputComands(sHeader *stateList, char cmd[MAXLENGTH500]) {
 //    char cmd[MAXLENGTH100];
     char cmdAux[MAXLENGTH100];
 //
 //    printf(STRINPUTCMD);
-//    scanf("%[^\n]", cmd);
+//    scanf("%[^\n]", cmd);   //This is used in a old version for input in this point the command
 //    dump_line(stdin);
 
     int i = 0, j = 0, e = 0, a = 0, intAux, fail = 0;
@@ -170,6 +180,12 @@ int inputComands(sHeader *stateList, char cmd[MAXLENGTH500]) { //Devuelve un 0 s
     return fail;
 }
 
+/*This function have 5 parameters the stateList who have saved the most of the
+ * information who is showed in the header, the fp who is the file, the 
+ * movements, a integer who is used for comprove if the header is the first of
+ * the second and the path of the execution. This function print in the file the
+ * headers of the file.
+ */
 void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves, char path[MAXLENGTH1500]) {
     int loop = 0;
 
@@ -205,6 +221,12 @@ void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves, c
     } while (loop < NUMOFHEADSEP);
 }
 
+/*This function have three parameters, the stateList who have the most of the
+ * information who is showed in the header, the node who have the refenrece of
+ * the first movement and is used for print all the movements. This function 
+ * print the body of the text and call the writeInFileHeader when is his turn
+ * for print in the file.
+ */
 void writeInFile(sHeader stateList, sNode node, char path[MAXLENGTH1500]) {
     if (strcmp(stateList.ouputFilename, STRNULL)) {
         char fileNameTxt[MAXLENGTH24];
@@ -236,6 +258,9 @@ void writeInFile(sHeader stateList, sNode node, char path[MAXLENGTH1500]) {
     }
 }
 
+/*This function have one parameter who is a file and his functionality is
+ * for cleaning stdin, and to prevent a infinity loop.
+ */
 void dump_line(FILE * fp) {
     int ch;
 

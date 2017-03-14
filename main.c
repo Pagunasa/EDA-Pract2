@@ -4,7 +4,9 @@
  * File: main.c
  * 
  * This file contains the hearth of hanoi game. It only calls another 
- * functions for doing the caracteristics that the game need for working
+ * functions for doing the caracteristics that the game need for working 
+ * and have a function who is used for show the menu (writeMenu) and have 
+ * the funcionality of show a movement with his matix who is associated
  * 
  * It can only operate with 3 towers and the number of disk can be changed 
  * manually putting it in the inputComands function.
@@ -23,34 +25,16 @@
 #include "filesOperations.h"
 #include "mainOperations.h"
 
-
-//#define NDISCS    5 // Number of discs to consider
-//#define NTOWERS   3 // Number of towers to consider: it cannot be changed in this version
-
 // This function indicates a move of one disk
 
-//void move(int towerorg, int towerdest){
-//    
-//    printf("Move one disc from %d to %d\n", 
-//            towerorg, towerdest);
-//    
-//}// move
+//void move(int towerorg, int towerdest)
 
 // Recursive function to move nd disks from the origin tower towerorg, to 
 // destination tower towerdest, using toweraux as auxiliary tower.
 // it doesn't return anything and instead it prints information of the move of 
 // the disks to display
 
-//void hanoi(int nd, int towerorg, int towerdest, int toweraux){
-//    
-//    if (nd == 1){
-
-//        move(towerorg, towerdest);
-//    
-//        move(towerorg, towerdest);
-//        hanoi(nd - 1, toweraux, towerdest, towerorg);
-//    }                                                     
-//}// hanoi
+//void hanoi(int nd, int towerorg, int towerdest, int toweraux)
 
 int main(int argc, char *argv[]) {
 
@@ -58,6 +42,10 @@ int main(int argc, char *argv[]) {
     int cmdCounter = 1;
     strlcpy(cmd, STRWHTSPACE, sizeof (cmd));
 
+    /*In this part of the code we get the arguments of the program and use 
+     * strlcat for send the final string to the inputCommands fucntion who 
+     * comproves that the structure of the command is correct. 
+     */
     char path[MAXLENGTH1500];
     strlcpy(path, argv[0], sizeof (path));
 
@@ -75,7 +63,9 @@ int main(int argc, char *argv[]) {
         exit(0);
     }
 
-//    printf("The argument supplied is %s\n", cmd);
+    if (DEBUG == TRUE) {
+        printf("The argument supplied is %s\n", cmd);
+    }
 
     int nd = MAXOFDISK, nt = MAXOFTOWERS;
     sHeader stateList;
@@ -87,21 +77,25 @@ int main(int argc, char *argv[]) {
     int depth = 0;
     int pass;
 
-    //showCommands();
+    //showCommands(); //this is used in a old version for show the possibilities of the arguments
     initHeaderInfo(&stateList, nd, nt);
     updateDate(&stateList, FIRST);
 
+    /*This loop was used in a old version for force the user to 
+     *reintroduce the command.
+     */
     // do {
     pass = inputComands(&stateList, cmd);
-    //} while (pass != 0);
+    //} while (pass != 0); 
+   
     if (pass == 1) {
         exit(0);
     }
 
-    if(DEBUG == TRUE){
+    if (DEBUG == TRUE) {
         printf("%s", stateList.cmdLine);
     }
-    
+
     initMatrix(&TowerInfo, stateList.diskNum, stateList.towerNum);
 
     if (DEBUG == TRUE) {
@@ -134,8 +128,13 @@ int main(int argc, char *argv[]) {
     writeMenu(node, stateList);
 
     return (0);
-} // main
+}
 
+/*This function have a Node and sateList of parameters for show to the user
+ * the movement that was introduced in the program. The funcionality if for 
+ * comprove that the user wants to show a movement and if it was to show it
+ * then show the movement for the console.
+ */
 void writeMenu(sNode Node, sHeader stateList) {
     char option;
     int mvm, pass;

@@ -16,10 +16,8 @@
 #ifndef FILESOPERATIONS_H
 #define	FILESOPERATIONS_H
 
-//void paintMoves(sMovesState stateList, int move);
 void showCommands();
 int inputComands(sHeader *stateList, char cmd[MAXLENGTH500]);
-//void makeTxt(sMovesState stateList, sTowersState towers, sHeader header, char fileName);
 void dump_line( FILE * fp );
 void writeInFile(sHeader stateList, sNode node, char path[MAXLENGTH1500]);
 void writeInFileHeader(sHeader stateList, FILE * fp, int FirstOSec, int moves, char path[MAXLENGTH1500]);
