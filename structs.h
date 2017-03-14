@@ -92,7 +92,7 @@
 #define STRERRORFILE "Error abriendo el fichero pasando a fase interactiva\n"
 #define STRTYPEFILE ".txt"
 //writeInFileHeader
-#define STRCMDLN "Command Line Entered: %s %s\r\n"
+#define STRCMDLN "Command Line Entered: %s/%s\r\n"
 #define STRTWRNUM "Number of Towers: %i\r\n"
 #define STRDSKNUM "Number of disk: %i\r\n"
 #define STROUTPUTFN "Ouput Filename: %s\r\n"

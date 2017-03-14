@@ -395,4 +395,80 @@ File Operation: ap
 Total Number Moves: 1
 END Time: Tue Mar 14 11:16:24 2017
 
+============================================================
+Command Line Entered: /cygdrive/C/Users/U140172/Documents/NetBeansProjects/EDA-Pract2/dist/Debug/Cygwin_4.x-Windows/eda-pract2/hanoiplus -d 3 -f ouput -o ap 
+Number of Towers: 3
+Number of disk: 3
+Ouput Filename: ouput
+File Operation: ap
+
+INIT Time: Tue Mar 14 11:38:07 2017
+
+==============================
+
+Move count 1, Rec Depth 2: it moves disc 1 from T0 to T1 
+
+H 2	 ...|... ...|... ...|...
+H 1	 .--|--. ...|... ...|...
+H 0	 ---|--- ..-|-.. ...|...
+	////////////////////////// 
+
+
+Move count 2, Rec Depth 1: it moves disc 2 from T0 to T2 
+
+H 2	 ...|... ...|... ...|...
+H 1	 ...|... ...|... ...|...
+H 0	 ---|--- ..-|-.. .--|--.
+	////////////////////////// 
+
+
+Move count 3, Rec Depth 2: it moves disc 1 from T1 to T2 
+
+H 2	 ...|... ...|... ...|...
+H 1	 ...|... ...|... ..-|-..
+H 0	 ---|--- ...|... .--|--.
+	////////////////////////// 
+
+
+Move count 4, Rec Depth 0: it moves disc 3 from T0 to T1 
+
+H 2	 ...|... ...|... ...|...
+H 1	 ...|... ...|... ..-|-..
+H 0	 ...|... ---|--- .--|--.
+	////////////////////////// 
+
+
+Move count 5, Rec Depth 2: it moves disc 1 from T2 to T0 
+
+H 2	 ...|... ...|... ...|...
+H 1	 ...|... ...|... ...|...
+H 0	 ..-|-.. ---|--- .--|--.
+	////////////////////////// 
+
+
+Move count 6, Rec Depth 1: it moves disc 2 from T2 to T1 
+
+H 2	 ...|... ...|... ...|...
+H 1	 ...|... .--|--. ...|...
+H 0	 ..-|-.. ---|--- ...|...
+	////////////////////////// 
+
+
+Move count 7, Rec Depth 2: it moves disc 1 from T0 to T1 
+
+H 2	 ...|... ..-|-.. ...|...
+H 1	 ...|... .--|--. ...|...
+H 0	 ...|... ---|--- ...|...
+	////////////////////////// 
+
+
+==============================
+Number of Towers: 3
+Number of disk: 3
+Ouput Filename: ouput
+File Operation: ap
+
+Total Number Moves: 7
+END Time: Tue Mar 14 11:38:07 2017
+
 ==============================
