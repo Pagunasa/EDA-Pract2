@@ -119,15 +119,15 @@
 #define COLOR_CYAN    "\x1b[36m"
 //End of Colors
 
-typedef struct{
-    int day;
-    char month[MAXLENGTH20];
-    int year;
-    char nDay[MAXLENGTH20];
-    int hour;
-    int min;
-    int seg;
-}sDateTime;
+//typedef struct{
+//    int day;
+//    char month[MAXLENGTH20];
+//    int year;
+//    char nDay[MAXLENGTH20];
+//    int hour;
+//    int min;
+//    int seg;
+//}sDateTime;
 
 
 typedef struct movement{
@@ -149,7 +149,7 @@ typedef struct{
     char fileOperations[MAXLENGTH20]; //ap o wp
     char initDate[MAXLENGTH30];
     char endDate[MAXLENGTH30];
-    sDateTime date; 
+   // sDateTime date; 
     //sMovesState moveState[MOVESMAX3]; //esto desaparecerá
 }sHeader;
 
@@ -159,10 +159,10 @@ typedef struct{
     int size;
 }sNode;
 
-typedef struct{
-    int moves;
-    int TowerInfo[MAXOFTOWERS][MAXOFDISK];//esto desaparecera
-}sTowersState; //seguramente desaparecera
+//typedef struct{
+//    int moves;
+//    int TowerInfo[MAXOFTOWERS][MAXOFDISK];//esto desaparecera
+//}sTowersState; //seguramente desaparecera
 
 
 

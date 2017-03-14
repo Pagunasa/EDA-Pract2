@@ -51,13 +51,12 @@
 //    }                                                     
 //}// hanoi
 
-int main() {
+int main(int argc, char *argv[]) {
     int nd = MAXOFDISK, nt = MAXOFTOWERS;
     sHeader stateList;
     int **TowerInfo = 0;
     sNode node;
     initList(&node);
-    char auxDate[MAXLENGTH30];
     
     int movemnt = 1;
     int depth = 0;

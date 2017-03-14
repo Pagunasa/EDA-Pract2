@@ -24,7 +24,7 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *n
     int auxDisk = 0;
     int i = 0;
     int k = 0;
-    int disks = stateList->diskNum - 1; //MAXOFDISK se convertiria en stateList->diskNum
+    int disks = stateList->diskNum - 1;
 
     if ((*TowerInfo)[org][i] == 0) {
         do {
