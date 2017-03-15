@@ -49,13 +49,13 @@ int main(int argc, char *argv[]) {
     char path[MAXLENGTH1500];
     strlcpy(path, argv[0], sizeof (path));
 
-    if (argc > 1 && argc < 9) {
+    if (argc > MINARG && argc < MAXARG) {
         do {
             strlcat(cmd, argv[cmdCounter], sizeof (cmd));
             strlcat(cmd, STRSPACE, sizeof (cmd));
             cmdCounter++;
         } while (cmdCounter < argc);
-    } else if (argc > 8) {
+    } else if (argc > MAXARG8) {
         printf(COLOR_RED "Too many arguments supplied.\n" COLOR_RESET);
         exit(0);
     } else {

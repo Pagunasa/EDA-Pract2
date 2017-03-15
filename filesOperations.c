@@ -134,7 +134,7 @@ int inputComands(sHeader *stateList, char cmd[MAXLENGTH500]) {
                             if (strcmp(cmdAux, STRW) != 0) {
                                 intAux++;
                             }
-                            if (intAux == 2) {
+                            if (intAux == TWOO) {
                                 printf(COLOR_RED STRERRORCMDOPT COLOR_RESET, cmdAux);
                                 fail = 1;
                             } else {

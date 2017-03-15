@@ -36,6 +36,10 @@
 #define NUMOFHEADSEP 30
 #define FIRST 1
 #define SECOND 2
+#define MINARG 1
+#define MAXARG 9
+#define MAXARG8 8
+#define TWOO 2
 
 //Strings
 #define STRNULL "NULL"
