@@ -50,6 +50,7 @@
 #define STRMENU2_2 "Introduce movimiento: "
 #define STRERRORINPUT "Input error\n"
 #define STRTHNKS "Gracias por usar el programa\n"
+#define STRMEMORYFREE "Memoria liberada"
 #define STRWHTSPACE ""
 #define STRSPACE " "
 #define STRJMP "\n\n"

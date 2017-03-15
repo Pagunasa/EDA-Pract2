@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
     }
 
     writeMenu(node, stateList);
-
+    freeTheListMemory(&node);
     return (0);
 }
 

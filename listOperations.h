@@ -75,6 +75,7 @@ void initList(sNode *node);
 void pushList(sNode *node, int depth, int towerOrg, int towerDest, int diskMoved, int mvmNumb, int **towerStatus, sHeader *stateList);
 void showList(sNode *node);
 void freeTheMemoryMatrix(int ***TowerInfo, int filas);
+void freeTheListMemory(sNode *node);
 void cpyMtr(int ***TowerInfo, int **TowerTCpy, int filas, int columnas);
 void showMtr(int **MvmState, sHeader stateList, FILE * fp);
 void updateDate(sHeader *stateList, int FirstOSec);

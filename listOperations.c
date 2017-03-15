@@ -68,8 +68,8 @@ int move(int org, int dest, int *movemt, int depth, sHeader *stateList, sNode *n
         } while (k < stateList->diskNum);
     }
 
-    int mvmNumb = (*movemt) - 1; 
-    
+    int mvmNumb = (*movemt) - 1;
+
     if (DEBUG == TRUE) {
         printf(STRDBG1, auxDisk, org, dest);
     }
@@ -173,16 +173,16 @@ void showMtr(int **MvmState, sHeader stateList, FILE * fp) {
     aux = 0;
     endLine = 0;
     strlcat(myTxt, STRJMPESP, sizeof (myTxt));
-    
+
     for (int j = 0; j < stateList.diskNum; j++) {
         strlcpy(myTxtAux1, STRWHTSPACE, sizeof (myTxtAux1));
         strlcpy(myTxtAux2, STRWHTSPACE, sizeof (myTxtAux2));
         strlcpy(myTxtAux3, STRWHTSPACE, sizeof (myTxtAux3));
-        
+
         PRINTSTRTOSTR((MvmState[pos0][j] == 0), myTxtAux1, MvmState[pos0][j], STREMPTY, e, stateList.diskNum, aux, aux2);
         PRINTSTRTOSTR((MvmState[pos1][j] == 0), myTxtAux2, MvmState[pos1][j], STREMPTY, e, stateList.diskNum, aux, aux2);
         PRINTSTRTOSTR((MvmState[pos2][j] == 0), myTxtAux3, MvmState[pos2][j], STREMPTY, e, stateList.diskNum, aux, aux2);
-       
+
         snprintf(myTxtAux, sizeof (myTxt), STRPROF, rep, myTxtAux1, myTxtAux2, myTxtAux3);
         strlcat(myTxt, myTxtAux, sizeof (myTxt));
 
@@ -280,13 +280,29 @@ void freeTheMemoryMatrix(int ***TowerInfo, int filas) {
  * for loock if it was the init of the end date, id the number is equals to one
  * is the initDate else is the endDate.
  */
-void updateDate(sHeader *stateList, int FirstOSec){
+void updateDate(sHeader *stateList, int FirstOSec) {
     time_t result = time(NULL);
-    if(FirstOSec == FIRST){
-        if(result != -1)
-           strlcpy(stateList->initDate, asctime(gmtime(&result)), sizeof(stateList->initDate));  
-    }else{
-        if(result != -1)
-           strlcpy(stateList->endDate, asctime(gmtime(&result)), sizeof(stateList->endDate));  
+    if (FirstOSec == FIRST) {
+        if (result != -1)
+            strlcpy(stateList->initDate, asctime(gmtime(&result)), sizeof (stateList->initDate));
+    } else {
+        if (result != -1)
+            strlcpy(stateList->endDate, asctime(gmtime(&result)), sizeof (stateList->endDate));
     }
+}
+
+void freeTheListMemory(sNode *node) {
+    sMovesState *moveAux, *moveToDelete;
+    int i = 0;
+    moveToDelete = node->firstElement;
+    
+    printf(COLOR_GREEN "hi" COLOR_RESET);
+
+    do {
+        moveAux = moveToDelete->next;
+        free(moveToDelete);
+        moveToDelete = moveAux;
+    } while (i <= node->size);
+    
+    printf(COLOR_GREEN STRMEMORYFREE COLOR_RESET);
 }
