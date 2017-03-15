@@ -85,7 +85,7 @@ int inputComands(sHeader *stateList, char cmd[MAXLENGTH500]) {
                             }
                             intAux = atoi(cmdAux);
 
-                            if (intAux != 0) {
+                            if (intAux > 0) {
                                 stateList->diskNum = intAux;
                             } else {
                                 printf(COLOR_RED STRERRORCMDDSK COLOR_RESET, cmdAux);

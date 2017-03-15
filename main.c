@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
     // do {
     pass = inputComands(&stateList, cmd);
     //} while (pass != 0); 
-   
+
     if (pass == 1) {
         exit(0);
     }
@@ -126,7 +126,6 @@ int main(int argc, char *argv[]) {
     }
 
     writeMenu(node, stateList);
-    freeTheListMemory(&node);
     return (0);
 }
 
@@ -135,7 +134,7 @@ int main(int argc, char *argv[]) {
  * comprove that the user wants to show a movement and if it was to show it
  * then show the movement for the console.
  */
-void writeMenu(sNode Node, sHeader stateList) {
+void writeMenu(sNode node, sHeader stateList) {
     char option;
     int mvm, pass;
     FILE * fp;
@@ -150,18 +149,19 @@ void writeMenu(sNode Node, sHeader stateList) {
             case SEEMOVEMENT:
                 do {
                     do {
-                        printf(STRMENU2_1, Node.size);
+                        printf(STRMENU2_1, node.size);
                         printf(STRMENU2_2);
                         pass = scanf("%i", &mvm);
                         dump_line(stdin);
-                        if (pass == 0 || mvm < 0 || mvm > Node.size) {
+                        if (pass == 0 || mvm < 0 || mvm > node.size) {
                             printf(COLOR_RED STRERRORINPUT COLOR_RESET);
                         }
-                    } while (pass == 0 || mvm < 0 || mvm > Node.size);
-                    showMovement(Node, stateList, mvm, fp);
+                    } while (pass == 0 || mvm < 0 || mvm > node.size);
+                    showMovement(node, stateList, mvm, fp);
                 } while (mvm != 0);
                 break;
             case NOTSEEMOVEMENT:
+                freeTheListMemory(&node);
                 printf(STRTHNKS);
                 break;
             default:

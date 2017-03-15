@@ -16,7 +16,7 @@
 
 #define TRUE 0
 #define FALSE 1
-#define DEBUG TRUE
+#define DEBUG FALSE
 #define MAXLENGTH20 20
 #define MAXLENGTH24 24
 #define MAXLENGTH30 30
@@ -50,7 +50,7 @@
 #define STRMENU2_2 "Introduce movimiento: "
 #define STRERRORINPUT "Input error\n"
 #define STRTHNKS "Gracias por usar el programa\n"
-#define STRMEMORYFREE "Memoria liberada"
+#define STRMEMORYFREE "Memoria liberada\n"
 #define STRWHTSPACE ""
 #define STRSPACE " "
 #define STRJMP "\n\n"

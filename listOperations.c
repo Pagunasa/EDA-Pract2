@@ -293,16 +293,16 @@ void updateDate(sHeader *stateList, int FirstOSec) {
 
 void freeTheListMemory(sNode *node) {
     sMovesState *moveAux, *moveToDelete;
-    int i = 0;
     moveToDelete = node->firstElement;
-    
-    printf(COLOR_GREEN "hi" COLOR_RESET);
 
     do {
-        moveAux = moveToDelete->next;
+        moveAux = moveToDelete->prev;
         free(moveToDelete);
         moveToDelete = moveAux;
-    } while (i <= node->size);
-    
-    printf(COLOR_GREEN STRMEMORYFREE COLOR_RESET);
+        node->size--;
+    } while (node->size > 0);
+
+    if(DEBUG == TRUE){
+        printf(COLOR_GREEN STRMEMORYFREE COLOR_RESET);
+    }
 }
