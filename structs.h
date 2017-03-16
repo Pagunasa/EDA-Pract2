@@ -31,6 +31,8 @@
 #define TOWERDESTINY 2
 #define SEEMOVEMENT 'S'
 #define NOTSEEMOVEMENT 'N'
+#define SEEMOVEMENTMIN 's'
+#define NOTSEEMOVEMENTMIN 'n'
 #define LEFT "L"
 #define RIGTH "R"
 #define NUMOFHEADSEP 30

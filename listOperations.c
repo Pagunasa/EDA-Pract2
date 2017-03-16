@@ -294,9 +294,10 @@ void updateDate(sHeader *stateList, int FirstOSec) {
 void freeTheListMemory(sNode *node) {
     sMovesState *moveAux, *moveToDelete;
     moveToDelete = node->firstElement;
-
+    freeTheMemoryMatrix(&moveToDelete->towerStatus, MAXOFTOWERS);
     do {
         moveAux = moveToDelete->prev;
+        
         free(moveToDelete);
         moveToDelete = moveAux;
         node->size--;

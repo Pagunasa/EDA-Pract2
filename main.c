@@ -146,6 +146,7 @@ void writeMenu(sNode node, sHeader stateList) {
         option = getc(stdin);
         dump_line(stdin);
         switch (option) {
+            case SEEMOVEMENTMIN:
             case SEEMOVEMENT:
                 do {
                     do {
@@ -160,6 +161,7 @@ void writeMenu(sNode node, sHeader stateList) {
                     showMovement(node, stateList, mvm, fp);
                 } while (mvm != 0);
                 break;
+            case NOTSEEMOVEMENTMIN:
             case NOTSEEMOVEMENT:
                 freeTheListMemory(&node);
                 printf(STRTHNKS);
@@ -167,6 +169,6 @@ void writeMenu(sNode node, sHeader stateList) {
             default:
                 printf(STRERRORINPUT);
         }
-    } while (option != NOTSEEMOVEMENT);
+    } while (option != NOTSEEMOVEMENT && option != NOTSEEMOVEMENTMIN);
 }
 #endif 
