@@ -15,7 +15,7 @@
  * movement, showMtr who show the drawing of the hanoi towers and his disks and 
  * the updateDate who update the date for showing it in the header.
  * 
- * Prepared by: 
+ * Prepared by: 193610 Guillem Martinez, 192860 Sandra Rodriguez, 193518 Oriol Bernier 
  * Modified: February 2017
  */
 
@@ -276,7 +276,7 @@ void freeTheMemoryMatrix(int ***TowerInfo, int filas) {
     *TowerInfo = 0;
 }
 
-/*This function get a pòinter od sHeader who we want to save the date and a int
+/*This function get a pointer od sHeader who we want to save the date and a int
  * for loock if it was the init of the end date, id the number is equals to one
  * is the initDate else is the endDate.
  */
@@ -291,13 +291,16 @@ void updateDate(sHeader *stateList, int FirstOSec) {
     }
 }
 
+/*This function get a pointer of the node and its for free the memory who was 
+ * reserved for all of the movements and his associate matrix (it calls 
+ * freeTheMemoryMatrix).
+ */
 void freeTheListMemory(sNode *node) {
     sMovesState *moveAux, *moveToDelete;
     moveToDelete = node->firstElement;
-    freeTheMemoryMatrix(&moveToDelete->towerStatus, MAXOFTOWERS);
     do {
         moveAux = moveToDelete->prev;
-        
+        freeTheMemoryMatrix(&moveToDelete->towerStatus, MAXOFTOWERS);
         free(moveToDelete);
         moveToDelete = moveAux;
         node->size--;

@@ -6,7 +6,7 @@
  * This file contains the definitions of all constants and the typedef of 
  * all the structs who is needed for working the program.
  * 
- * Prepared by: 
+ * Prepared by: 193610 Guillem Martinez, 192860 Sandra Rodriguez, 193518 Oriol Bernier 
  * Modified: February 2017
  */
 

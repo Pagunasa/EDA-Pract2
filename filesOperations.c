@@ -12,7 +12,7 @@
  * print the headers (writeInFileHeader) and the other all the body of the 
  * file (writeInFile). 
  * 
- * Prepared by:
+ * Prepared by: 193610 Guillem Martinez, 192860 Sandra Rodriguez, 193518 Oriol Bernier 
  * Modified: February 2017
  */
 

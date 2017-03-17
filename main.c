@@ -11,7 +11,7 @@
  * It can only operate with 3 towers and the number of disk can be changed 
  * manually putting it in the inputComands function.
  * 
- * Prepared by: 
+ * Prepared by: 193610 Guillem Martinez, 192860 Sandra Rodriguez, 193518 Oriol Bernier 
  * Modified: February 2017
  */
 

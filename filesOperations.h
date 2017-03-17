@@ -6,7 +6,7 @@
  * This file contains the prototipe of all functions who pertains to
  * the file named fileOperations.c
  * 
- * Prepared by: 
+ * Prepared by: 193610 Guillem Martinez, 192860 Sandra Rodriguez, 193518 Oriol Bernier 
  * Modified: February 2017
  */
 
